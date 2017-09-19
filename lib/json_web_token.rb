@@ -1,0 +1,29 @@
+# encoding: utf-8
+
+require 'jwt'
+
+class JsonWebToken
+  def self.encode(payload)
+    payload.reverse_merge!(meta)
+    JWT.encode(payload, Rails.application.secrets.secret_key_base)
+  end
+
+  def self.decode(token)
+    JWT.decode(token, Rails.application.secrets.secret_key_base)
+  end
+
+  def self.valid_payload(payload)
+    return false if expired(payload)
+    true
+  end
+
+  def self.meta
+    {
+      exp: 7.days.from_now.to_i
+    }
+  end
+
+  def self.expired(payload)
+    Time.at(payload['exp']) < Time.now
+  end
+end

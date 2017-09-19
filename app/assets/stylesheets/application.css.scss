@@ -1,0 +1,551 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+html {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	color: #9a5400;
+	font-family: Verdana, sans-serif;
+	font-size: 1.2vw;
+	line-height: 1.5;
+	overflow-x: hidden;
+}
+
+body, .articles-separation-line {
+	margin: 0;
+}
+
+a, .section {
+	text-decoration: none;
+}
+
+a {
+	color: #9F6928;
+	&:hover {
+	  color: #834800;
+	}
+}
+
+h3 {
+	margin-top: 0;
+}
+
+.footer {
+	background-color: #ffdf6d;
+  height: 2vw;
+}
+
+.caption,
+.description,
+.description-title,
+.fileform,
+.footer,
+.head-name,
+.section,
+.selectbutton,
+.sidebar-section,
+.sidebar-section-active {
+	text-align: center;
+}
+
+.content {
+	margin-top: 16px!important;
+	margin: 0 10%;
+}
+
+.row-padding,
+.third,
+.twothird {
+	padding: 0 8px;
+}
+
+.description-title,
+.eng,
+.eng-active,
+.fileformlabel,
+.log img,
+.paper-title,
+.reg img,
+.rus,
+.rus-active,
+.section,
+.third,
+.twothird {
+	float: left;
+}
+
+.third,
+.twothird-content,
+.login-modal {
+	background-image: image-url('menu.gif');
+}
+
+.section,
+.selectbutton,
+.third,
+.title,
+.upload {
+	width: 20%;
+}
+
+.third {
+  border-left: 2px ridge #fc0;
+  border-right: 2px ridge #fc0;
+  border-top: 1px solid #fc0;
+  border-bottom: 1px solid #fc0;
+  padding: 0;
+}
+
+.fringing,
+.head,
+.main,
+.third {
+	box-shadow: 0 8px 20px 0 rgba(0,0,0,0.57);
+	-moz-box-shadow: 0 8px 20px 0 rgba(0,0,0,0.57);
+	-webkit-box-shadow: 0 8px 20px 0 rgba(0,0,0,0.57);
+	filter: progid:DXImageTransform.Microsoft.shadow(direction=315);
+}
+
+.fileformlabel,
+.twothird {
+	width: 80%;
+}
+
+.auth,
+.description-title,
+.fileform,
+.fringing,
+.head,
+.log,
+.logo,
+.main,
+.reg,
+.sidebar-menu,
+.sidebar-section,
+.sidebar-section-active {
+	width: 100%;
+}
+
+.fringing {
+  background-image: image-url('sh.gif');
+  border: 1px solid #fc0;
+  min-height: 21px;
+}
+
+.head {
+  background-color: #fff5e0;
+  border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+  border: 5px solid #ffe681;
+  margin: 8px 0;
+}
+
+.head-name,
+.sidebar-section-active,
+.sidebar-section:hover {
+	text-shadow: 2px 2px 4px #dca476;
+	filter: Shadow(Color=#dca476, Direction=315, Strength=2);
+}
+
+.head-name {
+	font: italic small-caps bold 2.5vw monospace;
+}
+
+.auth,
+.description,
+.sidebar-menu {
+	margin-bottom: 5vh;
+}
+
+.description,
+.sidebar-menu {
+	font-size: 1.5vw;
+}
+
+.description,
+.description-title,
+.download-article,
+.download-link,
+.main-description-title,
+.paper-title,
+.settings-header {
+	font-style: italic;
+}
+
+.description {
+	font-family: Times, serif;
+}
+
+.body-background {
+	background: fixed image-url('background.jpg') no-repeat;
+	background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+}
+
+.main {
+	border-radius: 10px 10px 0 0;
+	-moz-border-radius: 10px 10px 0 0;
+	-webkit-border-radius: 10px 10px 0 0;
+	margin: 8px 0 12px 0;
+}
+
+.eng,
+.eng-active,
+.log:hover,
+.reg:hover,
+.rus,
+.rus-active,
+.section,
+.selectbutton:hover,
+.sidebar-section,
+.sidebar-section-active,
+.upload:hover {
+	cursor: pointer;
+}
+
+.description-title,
+.download-article,
+.download-link,
+.log,
+.main-description-title,
+.paper-title,
+.reg,
+.section {
+	font-weight: bold;
+}
+
+.section {
+	background: linear-gradient(#e8cc8e, #fff5e0) #fff5e0;
+	background: -moz-linear-gradient(#e8cc8e, #fff5e0) #fff5e0;
+  background: -o-linear-gradient(#e8cc8e, #fff5e0) #fff5e0;
+  background: -webkit-linear-gradient(#e8cc8e, #fff5e0) #fff5e0;
+	border: 2px solid #ffe681;
+	padding: 5px 0;
+	transition: background-color, box-shadow .2s ease-in-out;
+	-moz-transition: background-color, -moz-box-shadow .2s ease-in-out;
+	-o-transition: background-color, box-shadow .2s ease-in-out;
+	-webkit-transition: background-color, -webkit-box-shadow .2s ease-in-out;
+	&.left {
+		border-radius: 10px 0 0 0;
+		-moz-border-radius: 10px 0 0 0;
+		-webkit-border-radius: 10px 0 0 0;
+	}
+	&.right {
+		border-radius: 0 10px 0 0;
+		-moz-border-radius: 0 10px 0 0;
+		-webkit-border-radius: 0 10px 0 0;
+	}
+	&:hover, &:active {
+		background-color: #ffe7b4;
+	}
+	&:hover {
+	  box-shadow: inset 0 0 7px 1px rgba(0,0,0,0.57);
+		-moz-box-shadow: inset 0 0 7px 1px rgba(0,0,0,0.57);
+		-webkit-box-shadow: inset 0 0 7px 1px rgba(0,0,0,0.57);
+	}
+	&:active {
+	  box-shadow: inset 0 0 20px 3px rgba(0,0,0,0.57);
+		-moz-box-shadow: inset 0 0 20px 3px rgba(0,0,0,0.57);
+		-webkit-box-shadow: inset 0 0 20px 3px rgba(0,0,0,0.57);
+	}
+}
+
+.fileform,
+.fileformlabel,
+.lkmain,
+.main-description,
+.paper-wrapper,
+.selectbutton,
+.sidebar-menu,
+.twothird-content {
+	overflow: hidden;
+}
+
+.twothird-content, .sidebar-menu {
+	clear: both;
+}
+
+.twothird-content {
+	padding: 3%;
+}
+
+.main-content {  
+	border-top: 5px solid #dbb03e;
+  border-bottom: 5px solid #dbb03e;
+  border-radius: 20px;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.title {
+	background-color: #ffe681;
+	margin: 5% 0 0 5%;
+}
+
+.sidebar-menu {
+	padding: 2%;
+}
+
+.caption {
+	font: italic small-caps bold 2vw monospace;
+	margin: 20px 0;
+}
+
+.main-description {
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border: 3px dashed #9F6928;
+	font-size: 1vw;
+	margin: 0 5% 5%;
+	padding: 1% 3%;
+}
+
+.sidebar-section, .selectbutton {
+	background-color: #9F6928;
+}
+
+.fileformlabel,
+.selectbutton,
+.sidebar-section,
+.sidebar-section-active {
+	font-size: 1.5vh;
+}
+
+.fileform,
+.sidebar-section,
+.sidebar-section-active {
+	position: relative;
+}
+
+.log,
+.reg,
+.sidebar-section,
+.sidebar-section-active {
+	margin: 2%;
+}
+
+.sidebar-section, .sidebar-section-active {
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border: none;
+	color: white;
+	letter-spacing: 1px;
+	line-height: 1.6vh;
+	min-height: 5vh;
+	outline: none;
+	padding: 1.6vh 17% 1.6vh 2%;
+	text-transform: uppercase;
+	&:after {
+		background-color: #fdd853;
+		bottom: 0;
+		content: "";
+		position: absolute;
+		right: 0;
+		top: 0;
+    transition: width 0.5s;
+		-moz-transition: width 0.5s;
+		-o-transition: width 0.5s;
+		-webkit-transition: width 0.5s;
+	}
+}
+
+.sidebar-section {
+	transition: background-color .5s ease-in-out;
+	-moz-transition: background-color .5s ease-in-out;
+	-o-transition: background-color .5s ease-in-out;
+	-webkit-transition: background-color .5s ease-in-out;
+	&:after {
+    width: 10%;
+  }
+  &:hover {
+  	background-color: #cf9435 !important;
+  	&:after {
+		  width: 15%;
+		}
+	}
+}
+
+.sidebar-section-active {
+	background-color: #cf9435 !important;
+	&:after {
+    width: 15%;
+  }
+}
+
+.log, .reg {
+	font-size: 1.7vh;
+	&:hover {
+		color: #dbb03e;
+	}
+	& img {
+		margin: 1% 1% 0 2%;
+		height: 2vh;
+		width: 2vh;
+		padding-right: 1%;
+	}
+}
+
+.login-modal-wrap {
+	background-color: #ffe897;
+}
+
+.login-modal-checkbox {
+	padding-top: 1%;
+	font-size: 0.9vw;
+}
+
+.settings-header, .personal-photo {
+	margin-bottom: 1vh;
+}
+
+.personal-photo {
+	border: 2px solid #9F6928;
+	width: 30%;
+	margin-left: 35%;
+}
+
+.lkmain, .settings-block {
+	margin: 2vh 1vw;
+}
+
+.fileform, .fileformlabel {
+	background-color: #FFFFFF;
+	text-align: left;
+}
+
+.fileform, .selectbutton {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.fileform, .upload {
+	height: 3vh;
+}
+
+.fileform,
+.fileformlabel,
+.selectbutton {
+	vertical-align: middle;
+}
+
+.fileform {
+	border: 1px solid #CCCCCC;
+	padding: 2px;
+}
+
+.download-link,
+.language-menu,
+.selectbutton {
+	float: right;
+}
+
+.selectbutton, .fileformlabel {
+	height: 2.5vh;
+}
+ 
+.selectbutton { 
+	border: 1px solid #939494;
+	color: #FFFFFF;
+	line-height: 2.5vh;
+	box-shadow: 0 1px 3px #999;
+	-moz-box-shadow: 0 1px 3px #999;
+	-webkit-box-shadow: 0 1px 3px #999;
+	text-shadow: 0 -1px 1px #222;
+	border-bottom: 1px solid #222;
+}
+ 
+.upload {
+	filter: alpha(opacity=0); 
+	-moz-opacity: 0;
+	left: 80%; 
+	opacity: 0; 
+	position: absolute;
+	top: 0;
+}
+
+.paper-title, .description-title {
+  background-color: #f4db9d;
+  border-top: 1px dashed;
+  border-bottom: 1px dashed;
+}
+
+.eng,
+.eng-active,
+.rus,
+.rus-active {
+	height: 30px;
+	width: 30px;
+}
+
+.eng:hover,
+.eng-active {
+	background-image: image-url('eng_hover.gif');
+}
+
+.rus:hover,
+.rus-active {
+	background-image: image-url('rus_hover.gif');
+}
+
+.rus {
+	background-image: image-url('rus.gif');
+}
+
+.eng {
+	background-image: image-url('eng.gif');
+}
+
+.eng, .eng-active {
+	margin-left: 5px;
+}
+
+.rubric-containers {
+	padding: 10px;
+	border-left: 1vw solid #e9ce60;
+}
+
+.rubric-container {
+	border: 2px solid #e9ce60;
+}
+
+.download-link, .download-article {
+	font-size: 2vh;
+}
+
+.download-link {
+  padding-right: 7%;
+}
+
+.download-article {
+	padding-left: 3%;
+}
+
+.articles-separation-line {
+	border-top: 5px solid #e9ce60;
+}
