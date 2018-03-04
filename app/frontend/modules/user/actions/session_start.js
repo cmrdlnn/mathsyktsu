@@ -1,9 +1,9 @@
 import jwtDecode from 'jwt-decode'
-import { ajaxRequestToServer } from '../../api'
+import { JSONRequest } from 'api'
 
 export default function (data, remember) {
   return (dispatch) => {
-    ajaxRequestToServer('/signin', data, 'post')
+    JSONRequest('/signin', data, 'post')
       .then(response =>  {
         if (response.status == 404) {
           dispatch({

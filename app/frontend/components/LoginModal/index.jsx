@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FieldGroup from '../../common/FieldGroup'
 import Alerted from '../../common/Alerted'
-import { sessionStart, closeLoginModal } from '../../modules'
+import { sessionStart, closeLoginModal } from 'modules/user';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class LoginModal extends Component {
       })
     }
     else if (nextProps.session.status == 404) {
-      this.setState ({ 
+      this.setState ({
         emailMessage: 'Пользователь с данным EMail не зарегистрирован',
         emailValid: false,
         passwordValid: true,
@@ -85,15 +85,15 @@ class LoginModal extends Component {
     if (this.email.value != '') {
       const valid = EMAIL_PATTERN.test(this.email.value)
       if (valid)
-        this.setState ({ 
+        this.setState ({
           email: 'success'
         })
       else
-        this.setState ({ 
+        this.setState ({
           email: 'error'
         })
     } else {
-      this.setState ({ 
+      this.setState ({
         email: null
       })
     }
@@ -103,15 +103,15 @@ class LoginModal extends Component {
     const length = this.password.value.length
 
     if (length > 5) {
-      this.setState ({ 
+      this.setState ({
         password: 'success'
       })
     } else if (length == 0) {
-      this.setState ({ 
+      this.setState ({
         password: null
       })
     } else if (length < 6) {
-      this.setState ({ 
+      this.setState ({
         password: 'error'
       })
     }
@@ -167,10 +167,8 @@ class LoginModal extends Component {
 
 const EMAIL_PATTERN = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
-function mapStateToProps (state) {
-  return {
-    session: state.session
-  }
+function mapStateToProps({ user }) {
+  return { user };
 }
 
 

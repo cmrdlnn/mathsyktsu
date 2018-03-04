@@ -8,17 +8,17 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def authenticate_redactor_request!
-    authenticate_request!
+  def authenticate_redactor!
+    authenticate!
     invalid_authentication if @current_user.role != 'redactor'
   end
 
-  def authenticate_editorial_request!
-    authenticate_request!
+  def authenticate_editorial!
+    authenticate!
     invalid_authentication if @current_user.role != 'editorial_board'
   end
 
-  def authenticate_request!
+  def authenticate!
     if !payload || !JsonWebToken.valid_payload(payload.first)
       return invalid_authentication
     end

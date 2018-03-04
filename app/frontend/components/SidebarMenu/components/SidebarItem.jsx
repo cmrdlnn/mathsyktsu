@@ -85,4 +85,4 @@ class SidebarItem extends Component {
   }
 }
 
-export default SidebarItem
+export default SidebarItem;

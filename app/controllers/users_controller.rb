@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def check
-    authenticate_request!
+    authenticate!
     head :ok if @current_user
   end
 

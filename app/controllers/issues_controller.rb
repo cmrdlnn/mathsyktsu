@@ -1,17 +1,18 @@
 # encoding: utf-8
 
 class IssuesController < ApplicationController
+  before_action :authenticate_redactor!, only: %i[create delete update]
+
   include IssuesHelper
 
   def index
-    issues = Issue.all.select(issue_attributes)
-    render json: issues.to_json
+    result = IssuesService.index
+    render json: result
   end
 
   def download
-    issue = Issue.find(params[:id])
-    send_file "#{Rails.root}/private/issues/#{issue.attachment}",
-              filename: issue.filename, type: issue.mime_type
+    result = IssuesDownloadService.new(params).download
+    send_file(*result)
   end
 
   def create
@@ -30,8 +31,15 @@ class IssuesController < ApplicationController
     Issue.find(params[:issue][:id]).delete
   end
 
-  def change
+  def update
     authenticate_redactor_request!
-    Issue.find(params[:issue][:id]).update(params)
+    attributes = attributes_for_update(params[:issue])
+    if attributes.key?(:errors)
+      render json: attributes, status: :conflict
+    else
+      issue = Issue.find(params[:issue][:id])
+      issue.update(attributes)
+      render json: issue.to_json(only: issue_attributes)
+    end
   end
 end

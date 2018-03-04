@@ -5,9 +5,8 @@ class PapersController < ApplicationController
 
   def create
     authenticate_redactor_request!
-    attribute_sorting(params[:paper])
-    Paper.create(attributes)
-    head :created
+    attributes = attribute_sorting(params[:paper])
+    render json: Paper.create(attributes).to_json, status: :created
   end
 
   def show_for_issue

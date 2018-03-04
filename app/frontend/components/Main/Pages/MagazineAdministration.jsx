@@ -28,6 +28,44 @@ class MagazineAdministration extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setIssueState(this.props.issue)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setIssueState(nextProps.issue)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { issue } = this.props
+    if (!prevProps.issue) {
+      if (this.issueTitle) this.issueTitle.value = issue.title
+      if (issue.english_title) {
+        if (this.issueTitle) this.issueEnglishTitle.value = issue.english_title
+      } else {
+        if (this.issueTitle) this.issueEnglishTitle.value = ''
+      }
+    }
+  }
+
+  setIssueState = (issue) => {
+    if (issue) {
+      if (this.issueTitle) this.issueTitle.value = issue.title
+      if (issue.filename) {
+        this.setState({ fileTitle: issue.filename })
+      } else {
+        this.setState({ fileTitle: '' })
+      }
+      if (issue.english_title) {
+        this.setState({ englishVersion: true })
+        if (this.issueTitle) this.issueEnglishTitle.value = issue.english_title
+      } else {
+        this.setState({ englishVersion: false })
+        if (this.issueTitle) this.issueEnglishTitle.value = ''
+      }
+    }
+  }
+
   openPanel = (number) => {
     if (this.state.numberOfPanel == number) {
       this.setState({ numberOfPanel: null })
@@ -51,11 +89,72 @@ class MagazineAdministration extends Component {
     this.setState(stateForFile)
   }
 
-  changingIssue = () => {
-    
+  changeIssue = () => {
+    this.setState({issueMessage: null})
+    const { token, issue } = this.props,
+      { englishVersion, file, fileTitle } = this.state
+    if (this.issueTitle.value == '') {
+      this.setState({
+        titleMessage: 'Вы не заполнили поле "Название экземпляра журнала"'
+      })
+    } else if (englishVersion && this.issueEnglishTitle.value == '') {
+      this.setState({
+        englishTitleMessage: 'Вы не заполнили поле "Название экземпляра журнала на английском языке"'
+      })
+    } else if (englishVersion && this.issueTitle.value == this.issueEnglishTitle.value) {
+      this.setState({
+        englishTitleMessage: 'Названия экземпляров журнала на русском и английском языках не должны совпадать'
+      })
+    } else {
+      let data = {}
+      if (this.issueTitle.value != issue.title) {
+        data['title'] = this.issueTitle.value
+      }
+      if (this.deleteFile && this.deleteFile.checked) {
+        data['delete_file'] = this.deleteFile.checked
+      } else if (file && fileTitle != '' && fileTitle != issue.filename) {
+        data = { ...data, file: file, file_title: fileTitle }
+      }
+      if (!englishVersion) {
+        data['english_title'] = null
+      } else if (this.issueEnglishTitle.value != issue.english_title) {
+        data['english_title'] = this.issueEnglishTitle.value
+      }
+      if (Object.keys(data).length == 0) {
+        this.setState({issueMessage: 'Нечего менять'})
+        return
+      }
+      data = { issue: { ...data, id: issue.id } }
+      ajaxRequestToServer('/issues/change', data, 'PATCH', { 'Authorization': `Bearer ${token}` })
+        .then(response => {
+          if (response.status == 200) {
+            this.setState({
+              titleMessage: null,
+              englishTitleMessage: null,
+              file: null,
+              fileTitle: '',
+              issueMessage: 'Экземпляр журнала успешно изменён',
+            })
+            response.json().then(json => this.props.changeIssue(json))
+          } else if (response.status == 409) {
+            response.json().then(json => {
+              const { errors } = json
+              if (errors.title) {
+                this.setState({ titleMessage: errors.title })
+              }
+              if (errors.english_title) {
+                this.setState({ englishTitleMessage: errors.english_title })
+              }
+            })
+          } else {
+            this.setState({ issueMessage: 'При изменении экземляра журнала произошла неизвестная ошибка' })
+          }
+        })
+    }
   }
 
-  creatingIssue = () => {
+  createIssue = () => {
+    this.setState({issueNewMessage: null})
     const { token, rubric } = this.props,
       { englishNewVersion, fileNew, fileNewTitle } = this.state
     if (this.issueNewTitle.value == '') {
@@ -125,9 +224,10 @@ class MagazineAdministration extends Component {
   }
 
   addEnglishVesion = (prefix) => {
-    let newValueOfStateVariable = {}
-    newValueOfStateVariable[`english${prefix}Version`] = !this.state[`english${prefix}Version`]
-    this.setState(newValueOfStateVariable)
+    let newValueOfEnglishVersionVariable = {}
+    newValueOfEnglishVersionVariable[`english${prefix}Version`] = !this.state[`english${prefix}Version`]
+    newValueOfEnglishVersionVariable[`issue${prefix}Message`] = null
+    this.setState(newValueOfEnglishVersionVariable)
   }
 
   renderPanel = (numberOfPanel, process) => {
@@ -142,7 +242,6 @@ class MagazineAdministration extends Component {
     onChangeNameStateValues[`issue${prefix}Message`] = null
 
     onChangeEnglishNameStateValues[`english${prefix}TitleMessage`] = null
-
     return (
       <Panel
         collapsible
@@ -154,7 +253,7 @@ class MagazineAdministration extends Component {
           type="text"
           placeholder="Введите название..."
           style={{ marginBottom: '1vh' }}
-          inputRef={(input) => this[`issue${prefix}Title`] = input}
+          inputRef={input => this[`issue${prefix}Title`] = input}
           onChange={() => this.setState(onChangeNameStateValues)}
         />
         { Alerted(
@@ -178,13 +277,19 @@ class MagazineAdministration extends Component {
         </div>
         <p style={{ marginTop: '0' }}>*не обязательно</p>
         {process == 'changing' && issue.filename  ? (
-          <Checkbox>
+          <Checkbox
+            inputRef={ref => this.deleteFile = ref}
+          >
             Удалить файл экземпляра журнала
           </Checkbox>
         ) : null }
         <Panel
           collapsible
-          expanded={this.state[`english${prefix}Version`]}
+          expanded={process == 'creating' ? (
+            this.state.englishNewVersion
+          ) : (
+            this.state.englishVersion
+          )}
           style={{ marginBottom: '0' }}
         >
           <ControlLabel>
@@ -205,11 +310,12 @@ class MagazineAdministration extends Component {
         { Alerted(
           this.state[`issue${prefix}Message`],
           !this.state[`issue${prefix}Message`],
-          this.state[`issue${prefix}Message`] == `Экземпляр журнала успешно ${processInRussian}` ? 'success' : 'danger'
+          this.state[`issue${prefix}Message`] == 
+            `Экземпляр журнала успешно ${processInRussian}` ? 'success' : 'danger'
         )}
         <Button
           bsStyle="warning"
-          onClick={this[`${process}Issue`]}
+          onClick={process == 'creating' ? this.createIssue : this.changeIssue}
           style={{ marginRight: '1vw' }}
         >
           { process == 'creating' ? 'Создать' : 'Изменить' }
@@ -218,10 +324,18 @@ class MagazineAdministration extends Component {
           bsStyle="warning"
           onClick={() => this.addEnglishVesion(prefix)}
         >
-          { this.state[`english${prefix}Version`] ? (
-            'Не добавлять английскую версию'
+          { process == 'creating' ? (
+            this.state.englishNewVersion ? (
+              'Не добавлять английскую версию'
+            ) : (
+              'Добавить английскую версию'
+            )
           ) : (
-            'Добавить английскую версию'
+            this.state.englishVersion ? (
+              issue && issue.english_title ? 'Удалить английскую версию' : 'Не добавлять английскую версию'
+            ) : (
+              issue && issue.english_title ? 'Изменить английскую версию' : 'Добавить английскую версию'
+            )
           )}
         </Button>
       </Panel>

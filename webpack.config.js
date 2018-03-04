@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const isProd = process.argv.indexOf('-p') !== -1
 
 module.exports = {
+  devtool: isProd ? false : 'eval',
   entry: './app/frontend/index.jsx',
   output: {
     path: __dirname + '/public',
@@ -41,6 +42,7 @@ module.exports = {
     )
   ],
   resolve: {
-    extensions: ['.js', '.jsx']
-  }
+    extensions: ['.js', '.jsx'],
+    modules: ['./app/frontend', 'node_modules'],
+  },
 }

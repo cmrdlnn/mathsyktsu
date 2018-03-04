@@ -18,6 +18,10 @@ class RubricAdministration extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.rubricChangeTitle.value = nextProps.rubric.title
+  }
+
   openPanel = (number) => {
     if (this.state.numberOfPanel == number) {
       this.setState({
@@ -32,7 +36,7 @@ class RubricAdministration extends Component {
     const { token, addRubric } = this.props,
       new_rubric = this.rubricTitle.value
     if (new_rubric != '') {
-      ajaxRequestToServer('/rubrics/create', { rubric: { title: new_rubric }}, 'post', { 'Authorization': `Bearer ${token}` })
+      ajaxRequestToServer('/rubrics', { rubric: { title: new_rubric }}, 'post', { 'Authorization': `Bearer ${token}` })
         .then(response => {
           if (response.status == 201) {
             this.setState({
@@ -56,7 +60,7 @@ class RubricAdministration extends Component {
     const { rubric, token, changeRubric } = this.props,
       new_title = this.rubricChangeTitle.value
     if (new_title != '') {
-      ajaxRequestToServer('/rubrics/change', 
+      ajaxRequestToServer('/rubrics/change',
         { rubric: { id: rubric.id, title: new_title } },
         'PATCH',
         { 'Authorization': `Bearer ${token}` })

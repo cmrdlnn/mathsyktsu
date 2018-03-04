@@ -1,34 +1,26 @@
 # encoding: utf-8
 
 class RubricsController < ApplicationController
-  def create
-    authenticate_redactor_request!
-    rubric = Rubric.create(rubric_params)
-    if rubric.errors.full_messages.present?
-      head :conflict
-    else
-      render json: rubric, status: :created
-    end
-  end
+  before_action :authenticate_redactor!, only: %i[create update destroy]
+
+  include RubricsHelper
 
   def index
-    render json: Rubric.all.to_json
+    rubrics = service.index
+    render json: rubrics
   end
 
-  def change
-    authenticate_redactor_request!
-    Rubric.find(params[:rubric][:id]).update(title: params[:rubric][:title])
-    head :ok
+  def create
+    new_rubric = service.create(params)
+    render json: new_rubric, status: :created
   end
 
-  def delete
-    authenticate_redactor_request!
-    Rubric.find(params[:rubric][:id]).delete
+  def update
+    updated_rubric = service.update(params)
+    render json: updated_rubric
   end
 
-  private
-
-  def rubric_params
-    params.require(:rubric).permit(:title)
+  def destroy
+    service.destroy(params)
   end
 end

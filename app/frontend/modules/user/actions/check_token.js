@@ -1,10 +1,10 @@
-import jwtDecode from 'jwt-decode'
-import { ajaxRequestToServer } from '../../api'
+import jwtDecode from 'jwt-decode';
+import { request } from 'api';
 
-export default function (token) {
+export default function () {
   return (dispatch) => {
-    ajaxRequestToServer('/check', {}, 'post', {'Authorization': 'Bearer '+token}).then(response => {
-      if (response.status != 200) {
+    request('/check').then((response) => {
+      if (response.status !== 200) {
         dispatch({
           type: 'CHECK_TOKEN',
           payload: { token: null, status: null, role: null }

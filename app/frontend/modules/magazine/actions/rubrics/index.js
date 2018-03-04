@@ -1,8 +1,8 @@
-import { ajaxRequestToServer } from '../../api'
+import { request, JSONRequest } from 'api';
 
 export default function (rubric = null, issue = null) {
   return (dispatch) => {
-    ajaxRequestToServer('/issues/index').then(response => {
+    JSONRequest('/issues').then(response => {
       if (response.status == 200) {
         response.json().then(data => {
           dispatch({
@@ -19,7 +19,7 @@ export default function (rubric = null, issue = null) {
             type: 'SET_ACTIVE_ISSUE',
             payload: active_issue
           })
-          ajaxRequestToServer('/rubrics/index').then(response => {
+          request('/rubrics').then(response => {
             if (response.status == 200) {
               response.json().then(data => {
                 dispatch({

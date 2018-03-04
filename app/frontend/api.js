@@ -1,20 +1,32 @@
-function ajaxRequest(url, data, type, headerOptions){
-  let headers = Object.assign({
-    'Mode': 'cors',
-    'Charset': 'utf-8',
+export function request(url, data, type, headerOptions) {
+  const headers = {
+    Mode: 'cors',
+    Charset: 'utf-8',
     'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-  }, headerOptions)
+    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    ...headerOptions,
+  };
+  const token = localStorage.getItem('auth_token');
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   return fetch(url, {
     method: type || 'get',
     headers,
     credentials: 'same-origin',
-    body: data
-  }).then(response => {
-    return response
+    body: data,
   })
+    .then(response => response)
+    .catch(error => console.log(error))
 }
 
-export function ajaxRequestToServer(url, data, type, headerOptions={}){
-  return ajaxRequest(url, JSON.stringify(data), type, Object.assign({'Content-Type':'application/json'}, headerOptions))
+export function JSONRequest(url, data, type, headerOptions = {}) {
+  return request(
+    url,
+    JSON.stringify(data),
+    type,
+    { 'Content-Type': 'application/json', ...headerOptions },
+  );
 }

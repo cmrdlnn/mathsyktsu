@@ -12,3 +12,5 @@ node_modules
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+
+/private/**/*

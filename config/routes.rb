@@ -1,19 +1,8 @@
 # encoding: utf-8
 
 Rails.application.routes.draw do
-  root 'main_page#index'
-
-  get 'to_autors',                     to: 'main_page#index'
-  get 'jubilees',                      to: 'main_page#index'
-  get 'news',                          to: 'main_page#index'
-  get 'magazine',                      to: 'main_page#index'
-  get 'registration',                  to: 'main_page#index'
-  get 'editorial_board',               to: 'main_page#index'
-  get 'distribution_and_subscription', to: 'main_page#index'
-  get 'address',                       to: 'main_page#index'
-
-  get 'lk',                            to: 'main_page#index'
-  get 'confirm/:confirm_token',        to: 'main_page#index'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'home#index'
 
   post 'signup', to: 'users#create'
   get 'confirm/:token', to: 'main_page#index'
@@ -37,19 +26,14 @@ Rails.application.routes.draw do
   post 'set_editorial_board', to: 'editorial_board#set_editorial_board'
   post 'editorial_board', to: 'editorial_board#editorial_board'
 
-  get    'rubrics/index',  to: 'rubrics#index'
-  post   'rubrics/create', to: 'rubrics#create'
-  patch  'rubrics/change', to: 'rubrics#change'
-  delete 'rubrics/delete', to: 'rubrics#delete'
+  resources :rubrics, only: %i[index create update destroy]
 
-  get    'issues/index',         to: 'issues#index'
-  get    'issues/:id/download',  to: 'issues#download'
-  post   'issues/create',        to: 'issues#create'
-  patch  'issues/change',        to: 'issues#change'
-  delete 'issues/delete',        to: 'issues#delete'
+  resources :issues, only: %i[index create update destroy]
+  get 'issues/:id/download', to: 'issues#download'
 
   post 'papers/create', to: 'papers#create'
   get  'papers/:id/show', to: 'papers#show_for_issue'
   get  'papers/:id/download', to: 'papers#download'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get '*all' => 'home#index', defaults: { layout: 'new' }
 end

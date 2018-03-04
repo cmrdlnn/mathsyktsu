@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { setActiveIssue, setActiveRubric } from '../../../modules'
+import { setActiveIssue, setActiveRubric } from 'modules/magazine';
 import SidebarItem from '../components/SidebarItem'
 
 class SidebarIssues extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentWillUpdate(nextProps) {
     if (nextProps.active_rubric && !nextProps.active_issue) {
       const active_rubric = nextProps.active_rubric,
@@ -38,7 +34,7 @@ class SidebarIssues extends Component {
       for (let i = 0; i < rubrics.length; i++) {
         if (active_rubric.id == rubrics[i].id) {
           rows.push(
-            <SidebarItem 
+            <SidebarItem
               key={i}
               open
               rubric={rubrics[i]}
@@ -70,13 +66,8 @@ class SidebarIssues extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    rubrics: state.magazine.rubrics.all,
-    active_rubric: state.magazine.rubrics.active_rubric,
-    issues: state.magazine.issues.all,
-    active_issue: state.magazine.issues.active_issue,
-  }
+function mapStateToProps({ state: { issues, rubrics } }) {
+  return { ...issues, ...rubrics };
 }
 
 function mapDispatchToProps(dispatch) {

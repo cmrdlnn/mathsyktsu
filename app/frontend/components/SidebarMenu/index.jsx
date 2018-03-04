@@ -1,26 +1,26 @@
-import React, { Component } from 'react'
-import { Route, /* Link, */ withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import SidebarIssues from './Pages/SidebarIssues'
-import SidebarMain from './Pages/SidebarMain'
-import LoginModal from '../LoginModal'
-import { logOut } from '../../modules'
+import React, { Component } from 'react';
+import { Route, /* Link, */ withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { logOut } from 'modules/user';
+
+import SidebarIssues from './Pages/SidebarIssues';
+import SidebarMain from './Pages/SidebarMain';
+import LoginModal from '../LoginModal';
 
 class SidebarMenu extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      loginModalOpened: false
-    }
+    super(props);
+    this.state = { loginModalOpened: false };
   }
 
   openLoginModal = () => {
-    this.setState({ loginModalOpened: true })
+    this.setState({ loginModalOpened: true });
   }
 
   closeLoginModal = () => {
-    this.setState({ loginModalOpened: false })
+    this.setState({ loginModalOpened: false });
   }
 
   render() {
@@ -43,7 +43,7 @@ class SidebarMenu extends Component {
               Выйти
             </div>
           </div>
-        ) : ( 
+        ) : (
           <div className="auth">
             <div className="log" onClick={this.openLoginModal}>
               <img src="images/user32.png" alt="Вход" />
@@ -58,7 +58,7 @@ class SidebarMenu extends Component {
           </div>
         )}
         {['/', '/editorial_board', '/distribution_and_subscription', '/address']
-          .map((path, index) => 
+          .map((path, index) =>
             <Route key={index} exact path={path} component={SidebarMain} />
           )
         }
@@ -68,10 +68,8 @@ class SidebarMenu extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  return {
-    token: state.session.token
-  }
+function mapStateToProps({ user: { token } }) {
+  return { token };
 }
 
 function mapDispatchToProps(dispatch) {
