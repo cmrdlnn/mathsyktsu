@@ -173,7 +173,6 @@ h3 {
 }
 
 .auth,
-.description,
 .sidebar-menu {
   margin-bottom: 5vh;
 }
@@ -292,7 +291,7 @@ h3 {
   padding: 3%;
 }
 
-.main-content {  
+.main-content {
   border-top: 5px solid #dbb03e;
   border-bottom: 5px solid #dbb03e;
   border-radius: 20px;
@@ -410,8 +409,8 @@ h3 {
   }
 }
 
-.login-modal-wrap {
-  background-color: #ffe897;
+.login-modal-wrapper {
+  background-color: #ffdf6d;
 }
 
 .login-modal-checkbox {
@@ -468,8 +467,8 @@ h3 {
 .selectbutton, .fileformlabel {
   height: 2.5vh;
 }
- 
-.selectbutton { 
+
+.selectbutton {
   border: 1px solid #939494;
   color: #FFFFFF;
   line-height: 2.5vh;
@@ -479,12 +478,12 @@ h3 {
   text-shadow: 0 -1px 1px #222;
   border-bottom: 1px solid #222;
 }
- 
+
 .upload {
-  filter: alpha(opacity=0); 
+  filter: alpha(opacity=0);
   -moz-opacity: 0;
-  left: 80%; 
-  opacity: 0; 
+  left: 80%;
+  opacity: 0;
   position: absolute;
   top: 0;
 }

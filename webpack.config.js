@@ -1,48 +1,31 @@
-const webpack = require('webpack')
+const path = require('path');
+const merge = require('webpack-merge');
 
-const isProd = process.argv.indexOf('-p') !== -1
+const devServerOptions = process.argv.find(arg => arg.includes('webpack-dev-server'))
+  ? {
+    devServer: { headers: { 'Access-Control-Allow-Origin': '*' } },
+    output: { publicPath: 'http://0.0.0.0:8080/' },
+  }
+  : {};
 
-module.exports = {
-  devtool: isProd ? false : 'eval',
-  entry: './app/frontend/index.jsx',
-  output: {
-    path: __dirname + '/public',
-    publicPath: '/',
-    filename: 'webpack.bundle.js'
-  },
+module.exports = merge({
+  entry: path.join(__dirname, 'app/frontend/index.jsx'),
+  output: { path: path.join(__dirname, 'public') },
   module: {
     rules: [
       {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader',
-        include: [__dirname + '/app/frontend'],
-        exclude: [__dirname + '/node_modules']
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
       },
       {
-        test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        include: [__dirname + '/app/frontend'],
-        exclude: [__dirname + '/node_modules']
-      }
-    ]
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader'],
+      },
+    ],
   },
-  plugins:[
-    isProd ? (
-      new webpack.DefinePlugin({
-        'process.env':{
-          'NODE_ENV': JSON.stringify('production')
-        }
-      })
-    ) : (
-      new webpack.DefinePlugin({
-        'process.env': {
-          'NODE_ENV': JSON.stringify('development')
-        }
-      })
-    )
-  ],
   resolve: {
     extensions: ['.js', '.jsx'],
     modules: ['./app/frontend', 'node_modules'],
   },
-}
+}, devServerOptions);

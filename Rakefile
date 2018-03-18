@@ -5,22 +5,26 @@ require_relative 'config/application'
 
 Rails.application.load_tasks
 
-task :default do
+task :run do
   sh 'RAILS_ENV=development bin/rails server -b 0.0.0.0'
 end
 
+task :'run-dev' do
+  sh 'WEBPACK_PATH=http://0.0.0.0:8080 RAILS_ENV=development bin/rails server -b 0.0.0.0'
+end
+
 task :assets do
-  sh 'npm install'
+  sh 'npm i'
 end
 
-task :build_dev do
-  sh 'npm run build'
+task :webpack do
+  sh 'npm run dev'
 end
 
-task :build_prod do
+task :'webpack-prod' do
   sh 'npm run production'
 end
 
-task :dev_server do
-  sh 'npm run dev_server'
+task :'webpack-dev' do
+  sh 'npm run start'
 end

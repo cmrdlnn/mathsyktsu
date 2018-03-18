@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 class RubricsController < ApplicationController
   before_action :authenticate_redactor!, only: %i[create update destroy]

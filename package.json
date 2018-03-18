@@ -1,37 +1,39 @@
 {
   "name": "MathSyktsu",
   "version": "0.0.1",
-  "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "repository": "github:cmrdlnn/mathsyktsu",
+  "main": "app/frontend/index.jsx",
   "scripts": {
-    "build": "webpack -d --bail",
-    "build_prod": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev_server": "webpack-dev-server -d --host 0.0.0.0 --public 192.168.33.21:8080 --watch-poll"
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development",
+    "start": "webpack-dev-server --mode development --hot --watch-poll",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nikolay Ulyanov",
   "dependencies": {
-    "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "css-loader": "^0.27.3",
+    "css-loader": "^0.28.11",
     "downloadjs": "^1.4.7",
     "jwt-decode": "^2.2.0",
-    "prop-types": "^15.5.10",
-    "react": "^15.4.2",
-    "react-bootstrap": "^0.30.8",
-    "react-bootstrap-autosuggest": "^0.5.0",
-    "react-bootstrap-table": "^3.3.6",
-    "react-dom": "^15.4.2",
-    "react-redux": "^5.0.4",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
-    "redux": "^3.6.0",
-    "redux-logger": "^3.0.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
+    "reactstrap": "^5.0.0-beta.2",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "style-loader": "^0.16.0",
-    "webpack": "^2.3.3"
+    "style-loader": "^0.20.3",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12",
+    "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
@@ -41,6 +43,6 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^3.1.1"
   }
 }

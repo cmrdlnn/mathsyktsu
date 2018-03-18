@@ -1,5 +1,7 @@
 import React from 'react';
-import SidebarMenu from '../SidebarMenu';
+
+import AuthenticationManagement from './containers/AuthenticationManagement';
+// import SidebarMenu from './components/SidebarMenu';
 
 const Sidebar = () => (
   <div className="third">
@@ -13,7 +15,10 @@ const Sidebar = () => (
       <br />
       <b>Информатика.</b>
     </p>
-    <SidebarMenu />
+    <div className="sidebar-menu">
+      <AuthenticationManagement />
+      { /* <SidebarMenu /> */ }
+    </div>
     <div className="footer">
       © 2008-{ new Date().getFullYear() }
     </div>

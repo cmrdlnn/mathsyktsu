@@ -1,32 +1,35 @@
-export function request(url, data, type, headerOptions) {
+export default function request(url, body, method = 'GET', headerOptions = {}) {
   const headers = {
     Mode: 'cors',
-    Charset: 'utf-8',
+    Charset: 'UTF-8',
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
     ...headerOptions,
   };
-  const token = localStorage.getItem('auth_token');
 
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+  const JWT = localStorage.getItem('JWT');
+
+  if (JWT) {
+    headers.Authorization = `Bearer ${JWT}`;
   }
 
   return fetch(url, {
-    method: type || 'get',
-    headers,
+    body,
     credentials: 'same-origin',
-    body: data,
+    headers,
+    method,
   })
-    .then(response => response)
-    .catch(error => console.log(error))
+    .then((response) => {
+      if (response.ok) return response;
+      throw response;
+    });
 }
 
-export function JSONRequest(url, data, type, headerOptions = {}) {
+export function JSONRequest(url, body, method, headers = {}) {
   return request(
     url,
-    JSON.stringify(data),
-    type,
-    { 'Content-Type': 'application/json', ...headerOptions },
+    JSON.stringify(body),
+    method,
+    { 'Content-Type': 'application/json', ...headers },
   );
 }

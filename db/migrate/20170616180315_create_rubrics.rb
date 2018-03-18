@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 class CreateRubrics < ActiveRecord::Migration[5.0]
   def change

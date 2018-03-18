@@ -1,8 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import jwtDecode from 'jwt-decode';
-import rootReducer from '../modules';
+
+import rootReducer from 'modules';
 
 export default function configureStore() {
   let middleware = [thunk];

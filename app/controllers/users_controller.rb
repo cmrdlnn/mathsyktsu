@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 class UsersController < ApplicationController
   def create
@@ -22,22 +22,8 @@ class UsersController < ApplicationController
   end
 
   def login
-    params = user_login_params
-    user = User.find_by(email: params[:email].to_s.downcase)
-    if user
-      if user.authenticate(params[:password])
-        if user.confirmed_at?
-          auth_token = JsonWebToken.encode(user_id: user.id, role: user.role)
-          render json: { auth_token: auth_token }, status: :accepted
-        else
-          head :unauthorized
-        end
-      else
-        head :forbidden
-      end
-    else
-      head :not_found
-    end
+    auth_token = service.sign_in(params)
+    render json: { auth_token: auth_token }, status: :accepted
   end
 
   def check
@@ -89,10 +75,6 @@ class UsersController < ApplicationController
     params.require(:user)
           .permit(:email, :full_name)
           .merge(password: 'asdasd', role: 'editorial_board')
-  end
-
-  def user_login_params
-    params.require(:user).permit(:email, :password)
   end
 
   def user_params
