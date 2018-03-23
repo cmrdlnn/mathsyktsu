@@ -33,12 +33,12 @@ const Field = ({
         </InputGroupAddon>
       )}
       <Input
+        {...inputProps}
         id={name}
         name={name}
         placeholder={placeholder}
         required={required}
         type={type}
-        {...inputProps}
       />
     </InputGroup>
     { helper ? <FormText>{ helper }</FormText> : null }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function DistributionAndSubscription() {
   return (
@@ -14,7 +14,7 @@ function DistributionAndSubscription() {
         Приобрести журнал можно в книжной лавке СыктГУ по адресу: Сыктывкар, Октябрьский пр., д.55, главный корпус, 1 этаж (рядом со входом).
       </div>
     </div>
-  )
+  );
 }
 
-export default DistributionAndSubscription
+export default DistributionAndSubscription;

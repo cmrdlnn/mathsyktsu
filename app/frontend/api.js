@@ -20,12 +20,13 @@ export default function request(url, body, method = 'GET', headerOptions = {}) {
     method,
   })
     .then((response) => {
+      if (response.status === 403) localStorage.removeItem('JWT');
       if (response.ok) return response;
       throw response;
     });
 }
 
-export function JSONRequest(url, body, method, headers = {}) {
+export function JSONRequest(url, body, method = 'POST', headers = {}) {
   return request(
     url,
     JSON.stringify(body),

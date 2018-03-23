@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function MainPage() {
   return (
@@ -7,7 +7,7 @@ function MainPage() {
       <p className="caption">
         Слово главного редактора
       </p>
-      <div className="main-description">  
+      <div className="main-description">
         <p>
           В журнале публикуются результаты исследований в области теоретической и прикладной математики, механики и информатики, отражающие спектр научной тематики математического факультета СыктГУ и других организаций, статьи чьих сотрудников помещаются в «Вестнике».
         </p>
@@ -35,7 +35,7 @@ function MainPage() {
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default MainPage
+export default MainPage;

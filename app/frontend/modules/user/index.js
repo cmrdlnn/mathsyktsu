@@ -2,6 +2,6 @@ import user from './reducers/user';
 
 export default user;
 
-export checkAuthentication from './actions/check_authentication';
-export logOut from './actions/log_out';
-export sessionStart from './actions/session_start';
+export authenticate from './actions/authenticate';
+export login from './actions/login';
+export logout from './actions/logout';

@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react';
 
-function Editorials() {
+function EditorialBoard() {
   return (
     <div className="main-content">
       <img className="title" src="/images/title.png" alt="О журнале" />
@@ -35,7 +35,7 @@ function Editorials() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Editorials
+export default EditorialBoard;

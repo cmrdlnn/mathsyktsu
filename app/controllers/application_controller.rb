@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   ERRORS_MAP.each do |(error, status)|
     rescue_from error do |exception|
-      render json: { message: exception.message }, status: status
+      render json: { error: exception.message }, status: status
     end
   end
 
@@ -21,15 +21,16 @@ class ApplicationController < ActionController::Base
 
   def authenticate_redactor!
     user = authenticate!
-    raise Errors::User::NotAuthorized if user.role != 'redactor'
-  end
-
-  def authenticate_editorial!
-    user = authenticate!
-    raise Errors::User::NotAuthorized if user.role != 'editorial_board'
+    raise UserErrors::NotAuthorized if user.role != 'redactor'
   end
 
   def authenticate!
-    UsersService::Authenticate.authenticate!
+    UsersService.authenticate!(authorization_header)
+  end
+
+  private
+
+  def authorization_header
+    request.headers['Authorization']
   end
 end

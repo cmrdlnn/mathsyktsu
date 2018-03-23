@@ -6,7 +6,7 @@ module UserErrors
   #
   class InvalidCredentials < ArgumentError
     def initialize
-      super('По данным логину и паролю пользователь не найден')
+      super('Неверный e-mail или пароль')
     end
   end
 end

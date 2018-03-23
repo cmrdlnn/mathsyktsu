@@ -2,38 +2,35 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
-  Modal,
+  Modal as ReactstrapModal,
   ModalHeader,
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
 
-const CustomModal = ({
+const Modal = ({
+  bodyClass,
   children,
-  className,
   closeButtonColor,
   footer,
   footerClass,
   header,
   headerClass,
   isOpen,
-  style,
   toggle,
   wrapper: Wrapper,
   ...modalProps
 }) => (
-  <Modal
-    className={className}
-    isOpen={isOpen}
-    style={style}
-    toggle={toggle}
+  <ReactstrapModal
     {...modalProps}
+    isOpen={isOpen}
+    toggle={toggle}
   >
     <Wrapper>
       <ModalHeader className={headerClass} toggle={toggle}>
         { header }
       </ModalHeader>
-      <ModalBody className={className}>
+      <ModalBody className={bodyClass}>
         { children }
       </ModalBody>
       <ModalFooter className={footerClass}>
@@ -43,22 +40,21 @@ const CustomModal = ({
         </Button>
       </ModalFooter>
     </Wrapper>
-  </Modal>
+  </ReactstrapModal>
 );
 
-CustomModal.defaultProps = {
-  className: 'login-modal',
+Modal.defaultProps = {
+  bodyClass: 'login-modal',
   closeButtonColor: 'warning',
   footer: null,
   footerClass: 'login-modal-wrapper',
   headerClass: 'login-modal-wrapper',
-  style: null,
   wrapper: Fragment,
 };
 
-CustomModal.propTypes = {
+Modal.propTypes = {
+  bodyClass: PropTypes.string,
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
   closeButtonColor: PropTypes.string,
   footer: PropTypes.oneOfType([
     PropTypes.node,
@@ -71,11 +67,8 @@ CustomModal.propTypes = {
   ]).isRequired,
   headerClass: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
-  style: PropTypes.objectOf(
-    PropTypes.string,
-  ),
   toggle: PropTypes.func.isRequired,
-  wrapper: PropTypes.node,
+  wrapper: PropTypes.func,
 };
 
-export default CustomModal;
+export default Modal;

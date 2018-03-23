@@ -1,13 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from 'reactstrap';
+import { Alert as ReactstrapAlert } from 'reactstrap';
 
-const CustomAlert = ({ message, ...alertProps }) => (
-  <Alert isOpen={!!message} {...alertProps}>
+const Alert = ({ message, color, ...alertProps }) => (
+  <ReactstrapAlert
+    {...alertProps}
+    color={color}
+    isOpen={!!message}
+  >
     { message }
-  </Alert>
+  </ReactstrapAlert>
 );
 
-CustomAlert.propTypes = { message: PropTypes.string.isRequired };
+Alert.defaultProps = {
+  color: 'danger',
+  message: null,
+};
 
-export default CustomAlert;
+Alert.propTypes = {
+  color: PropTypes.string,
+  message: PropTypes.string,
+};
+
+export default Alert;

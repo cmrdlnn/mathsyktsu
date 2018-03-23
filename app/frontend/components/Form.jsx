@@ -6,16 +6,12 @@ class Form extends Component {
   handelSubmit = (e) => {
     e.preventDefault();
 
-    const { onSubmit, withoutReset } = this.props;
-    const form = e.target;
-    const json = Array.from(form.elements).reduce((result, element) => {
+    const json = Array.from(e.target.elements).reduce((result, element) => {
       if (element.name) result[element.name] = element.value;
       return result;
     }, {});
 
-    if (!withoutReset) form.reset();
-
-    onSubmit(json);
+    this.props.onSubmit(json);
   }
 
   render() {
@@ -23,16 +19,14 @@ class Form extends Component {
       buttonClassName,
       buttonText,
       children,
-      className,
-      style,
       withoutButton,
+      ...formProps
     } = this.props;
 
     return (
       <form
-        className={className}
+        {...formProps}
         onSubmit={this.handelSubmit}
-        style={style}
       >
         { children }
         { withoutButton ? null : (
@@ -51,23 +45,16 @@ class Form extends Component {
 
 Form.defaultProps = {
   buttonClassName: '',
-  className: '',
-  style: null,
+  buttonText: null,
   withoutButton: false,
-  withoutReset: false,
 };
 
 Form.propTypes = {
   buttonClassName: PropTypes.string,
-  buttonText: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
-  style: PropTypes.objectOf(
-    PropTypes.string,
-  ),
   withoutButton: PropTypes.bool,
-  withoutReset: PropTypes.bool,
 };
 
 export default Form;

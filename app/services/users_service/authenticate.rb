@@ -2,8 +2,8 @@
 
 module UsersService
   class Authenticate
-    def initialize
-      @credential = payload
+    def initialize(authorization_header)
+      @credentials = payload(authorization_header)
       check_crendentials!
     end
 
@@ -15,10 +15,10 @@ module UsersService
 
     private
 
-    attr_reader :credential
+    attr_reader :credentials
 
-    def check_crendential!
-      return if credential && JsonWebToken.valid_payload(credential.first)
+    def check_crendentials!
+      return if credentials && JsonWebToken.valid_payload(credentials.first)
       not_authorized!
     end
 
@@ -27,16 +27,16 @@ module UsersService
     end
 
     def not_authorized!
-      raise Errors::User::NotAuthorized
+      raise UserErrors::NotAuthorized
     end
 
     def load_user
-      User.find_by(id: credential.first['user_id'])
+      User.find_by(id: credentials.first['user_id'])
     end
 
-    def payload
-      auth_header = request.headers['Authorization']
-      token = auth_header.split(' ').last
+    def payload(authorization_header)
+      return unless authorization_header
+      token = authorization_header.split(' ').last
       JsonWebToken.decode(token)
     end
   end

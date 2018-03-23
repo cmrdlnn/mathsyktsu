@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 module UsersService
-  class SignIn
+  class Login
     def initialize(params)
       parameters = permit_params(params)
       @email = parameters[:email].strip.downcase
       @password = parameters[:password]
     end
 
-    def sign_in
+    def login
       user = User.find_by(email: email)
-      check_login!(user)
-      check_password!(user)
+      check_user!(user)
       JsonWebToken.encode(user_id: user.id, role: user.role)
     end
 
@@ -21,12 +20,9 @@ module UsersService
 
     attr_reader :password
 
-    def check_login!(user)
-      raise Errors::User::InvalidLogin unless user
-    end
-
-    def check_password!(user)
-      raise Errors::User::InvalidPassword unless user.authenticate(password)
+    def check_user!(user)
+      return if user && user.authenticate(password)
+      raise UserErrors::InvalidCredentials
     end
 
     def permit_params(params)

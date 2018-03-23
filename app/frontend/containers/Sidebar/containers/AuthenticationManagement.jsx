@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { logOut } from 'modules/user';
+import { login, logout } from 'modules/user';
 
-import LoginModal from './LoginModal';
+import LoginModal from '../components/LoginModal';
 
 class AuthenticationManagement extends Component {
   constructor(props) {
@@ -27,18 +27,18 @@ class AuthenticationManagement extends Component {
   }
 
   render() {
-    const { exit, role } = this.props;
+    const { enter, exit, user } = this.props;
 
     return (
       <Fragment>
-        { role ? null : (
-          <LoginModal
-            toggle={this.toggle}
-            isOpen={this.state.loginModalIsOpen}
-          />
-        )}
+        <LoginModal
+          isOpen={this.state.loginModalIsOpen}
+          login={enter}
+          toggle={this.toggle}
+          {...user}
+        />
         <div className="auth">
-          { role ? (
+          { user.role ? (
             <div
               className="log"
               onClick={exit}
@@ -67,19 +67,24 @@ class AuthenticationManagement extends Component {
   }
 }
 
-AuthenticationManagement.defaultProps = { role: null };
-
 AuthenticationManagement.propTypes = {
+  enter: PropTypes.func.isRequired,
   exit: PropTypes.func.isRequired,
-  role: PropTypes.string,
+  user: PropTypes.shape({
+    error: PropTypes.string,
+    role: PropTypes.string,
+  }).isRequired,
 };
 
-function mapStateToProps({ user: { role } }) {
-  return { role };
+function mapStateToProps({ user }) {
+  return { user };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { exit: bindActionCreators(logOut, dispatch) };
+  return {
+    enter: bindActionCreators(login, dispatch),
+    exit: bindActionCreators(logout, dispatch),
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthenticationManagement);

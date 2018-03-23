@@ -4,10 +4,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
 
-  post 'signup', to: 'users#create'
-  get 'confirm/:token', to: 'main_page#index'
-  post 'signin', to: 'users#login'
-  get 'users/check', to: 'users#check'
+  get 'users/authenticate', to: 'users#authenticate'
+  get 'users/logout', to: 'users#logout'
+  post 'users/login', to: 'users#login'
 
   resources :rubrics, only: %i[index create update destroy]
 

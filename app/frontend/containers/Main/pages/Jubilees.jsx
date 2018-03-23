@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function Jubilees() {
   return (
@@ -60,7 +60,7 @@ function Jubilees() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Jubilees
+export default Jubilees;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function Address() {
   return (
@@ -18,7 +18,7 @@ function Address() {
         <a href="mailto:vestnik-mmi@syktsu.ru">vestnik-mmi@syktsu.ru</a>
       </div>
     </div>
-  )
+  );
 }
 
-export default Address
+export default Address;

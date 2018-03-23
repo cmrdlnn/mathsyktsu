@@ -4,15 +4,15 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { checkAuthentication } from 'modules/user';
+import { authenticate } from 'modules/user';
 
 import Main from './Main';
 import Sidebar from './Sidebar';
 
 class App extends Component {
-  // componentWillMount() {
-  //   this.props.checkAuthentication();
-  // }
+  componentWillMount() {
+    this.props.authenticate();
+  }
 
   render() {
     return (
@@ -26,10 +26,10 @@ class App extends Component {
   }
 }
 
-App.propsTypes = { checkAuthentication: PropTypes.func.isRequired };
+App.propsTypes = { authenticate: PropTypes.func.isRequired };
 
 function mapDispatchToProps(dispatch) {
-  return { checkAuthentication: bindActionCreators(checkAuthentication, dispatch) };
+  return { authenticate: bindActionCreators(authenticate, dispatch) };
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(App));

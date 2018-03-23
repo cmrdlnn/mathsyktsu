@@ -35,10 +35,6 @@ body, .articles-separation-line {
   margin: 0;
 }
 
-a, .section {
-  text-decoration: none;
-}
-
 a {
   color: #9F6928;
   &:hover {
@@ -170,11 +166,12 @@ h3 {
 
 .head-name {
   font: italic small-caps bold 2.5vw monospace;
+  margin: 2vh 0;
 }
 
 .auth,
 .sidebar-menu {
-  margin-bottom: 5vh;
+  margin-bottom: 4vh;
 }
 
 .description,
@@ -243,6 +240,7 @@ h3 {
   background: -webkit-linear-gradient(#e8cc8e, #fff5e0) #fff5e0;
   border: 2px solid #ffe681;
   padding: 5px 0;
+  text-decoration: none !important;
   transition: background-color, box-shadow .2s ease-in-out;
   -moz-transition: background-color, -moz-box-shadow .2s ease-in-out;
   -o-transition: background-color, box-shadow .2s ease-in-out;
@@ -306,6 +304,9 @@ h3 {
 
 .sidebar-menu {
   padding: 2%;
+  & a:hover {
+    text-decoration: none;
+  }
 }
 
 .caption {
