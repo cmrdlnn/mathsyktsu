@@ -18,5 +18,11 @@ export updateRubric from './actions/rubrics/update';
 
 export createIssue from './actions/issues/create';
 export destroyIssue from './actions/issues/destroy';
+export indexIssues from './actions/issues/index';
 export setActiveIssue from './actions/issues/set_active';
 export updateIssue from './actions/issues/update';
+
+export createPaper from './actions/papers/create';
+export destroyPaper from './actions/papers/destroy';
+export indexPapers from './actions/papers/index';
+export updatePaper from './actions/papers/update';

@@ -2,8 +2,10 @@
 
 module RubricsService
   module Index
-    def self.index
-      Rubric.all.to_json
+    class << self
+      def index
+        Rubric.all.to_json
+      end
     end
   end
 end

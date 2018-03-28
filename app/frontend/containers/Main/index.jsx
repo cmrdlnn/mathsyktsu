@@ -82,13 +82,15 @@ class Main extends Component {
             }
           </Fragment>
           <div className="twothird-content">
-            <Switch>
-              {
-                this.allRoutes(mainRoutes).map(route => (
-                  <Route {...route} />
-                ))
-              }
-            </Switch>
+            <div className="main-content">
+              <Switch>
+                {
+                  this.allRoutes(mainRoutes).map(route => (
+                    <Route {...route} />
+                  ))
+                }
+              </Switch>
+            </div>
           </div>
           <div className="footer">
             { 'Вестник Сыктывкарского университета. Перейти на ' }

@@ -26,7 +26,7 @@ class App extends Component {
   }
 }
 
-App.propsTypes = { authenticate: PropTypes.func.isRequired };
+App.propTypes = { authenticate: PropTypes.func.isRequired };
 
 function mapDispatchToProps(dispatch) {
   return { authenticate: bindActionCreators(authenticate, dispatch) };

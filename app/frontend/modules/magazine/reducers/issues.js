@@ -1,80 +1,48 @@
-export default function (state = {}, { type, payload }) {
+import {
+  CLEAR_ISSUES,
+  CREATE_ISSUE,
+  DESTROY_ISSUE,
+  INDEX_ISSUES,
+  SET_ACTIVE_ISSUE,
+  UPDATE_ISSUE,
+} from '../constants';
+
+import findIndexById, { sliceByIndex } from '../utils';
+
+const initialState = {
+  all: [],
+  fetching: true,
+};
+
+export default function (state = initialState, { type, payload }) {
   switch (type) {
-    case 'FETCH_ISSUES': {
-      return {
-        ...state,
-        issues: {
-          ...state.issues,
-          all: payload
-        }
-      }
+    case CLEAR_ISSUES: {
+      return initialState;
     }
 
-    case 'SET_ACTIVE_ISSUE': {
-      return {
-        ...state,
-        issues: {
-          ...state.issues,
-          active_issue: payload
-        }
-      }
+    case CREATE_ISSUE: {
+      return { ...state, all: [...state.all, payload] };
     }
 
-    case 'ADD_ISSUE': {
-      return {
-        ...state,
-        issues: {
-          all: [...state.issues.all, payload],
-          active_issue: payload
-        }
-      }
+    case DESTROY_ISSUE: {
+      const index = findIndexById(payload, state.all);
+      return { ...state, all: sliceByIndex(index, state.all) };
     }
 
-    case 'CHANGE_ISSUE': {
-      const issues = changeById(state.issues.all, payload)
-      return {
-        ...state,
-        issues: {
-          all: issues,
-          active_issue: payload
-        }
-      }
+    case INDEX_ISSUES: {
+      return { ...state, all: payload, fetching: false };
     }
 
-    case 'DELETE_ISSUE': {
-      const issues = deleteById(state.issues.all, payload)
-      let active_issue = null
-      if (issues.length) {
-        active_issue = issues.filter(issue =>
-          issue.id == state.rubrics.active_rubric)[0]
-      }
-      return {
-        ...state,
-        issues: {
-          all: issues,
-          active_issue: active_issue
-        }
-      }
+    case SET_ACTIVE_ISSUE: {
+      return { ...state, active: payload };
+    }
+
+    case UPDATE_ISSUE: {
+      const index = findIndexById(payload.id, state.all);
+      return { ...state, all: sliceByIndex(index, state.all, payload) };
     }
 
     default:
-      return state
-    }
-}
-
-function changeById(items, changed) {
-  const index = items.findIndex(item => item.id == changed.id)
-  return [
-    ...items.slice(0, index),
-    changed,
-    ...items.slice(index + 1)
-  ]
-}
-
-function deleteById(items, id) {
-  const index = items.findIndex(item => item.id == id)
-  return [
-    ...items.slice(0, index),
-    ...items.slice(index + 1)
-  ]
+      return state;
+  }
 }

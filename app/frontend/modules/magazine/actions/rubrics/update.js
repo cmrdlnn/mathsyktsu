@@ -1,8 +1,16 @@
-export default function (id, newTitle) {
-  return (dispatch) => {
-    dispatch({
-      type: 'CHANGE_RUBRIC',
-      payload: { id: id, newTitle: newTitle }
-    })
-  }
+import { JSONRequest } from 'api';
+
+import { UPDATE_RUBRIC } from '../../constants';
+
+export default function (id, rubric) {
+  return dispatch => (
+    JSONRequest(`/rubrics/${id}`, { rubric }, 'PUT')
+      .then(response => response.json())
+      .then((payload) => {
+        dispatch({
+          type: UPDATE_RUBRIC,
+          payload,
+        });
+      })
+  );
 }

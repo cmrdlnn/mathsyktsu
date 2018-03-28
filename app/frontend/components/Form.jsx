@@ -45,7 +45,7 @@ class Form extends Component {
 
 Form.defaultProps = {
   buttonClassName: '',
-  buttonText: null,
+  buttonText: 'Создать',
   withoutButton: false,
 };
 

@@ -14,8 +14,8 @@ module RubricsService
 
     attr_reader :id
 
-    def permit_params
-      params.require(:rubric).permit(:title)
+    def permit_params(params)
+      params.permit(:id)
     end
   end
 end

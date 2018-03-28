@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 function Address() {
   return (
-    <div className="main-content">
+    <Fragment>
       <img className="title" src="/images/title.png" alt="О журнале" />
       <p className="caption">
         Адрес редакции
@@ -17,7 +17,7 @@ function Address() {
         <p className="main-description-title">ЭЛЕКТРОННАЯ ПОЧТА</p>
         <a href="mailto:vestnik-mmi@syktsu.ru">vestnik-mmi@syktsu.ru</a>
       </div>
-    </div>
+    </Fragment>
   );
 }
 

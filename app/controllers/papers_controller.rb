@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class PapersController < ApplicationController
+  before_action :authenticate_redactor!, only: %i[create update destroy]
+
   include PapersHelper
 
   def create
-    authenticate_redactor_request!
     attributes = attribute_sorting(params[:paper])
     render json: Paper.create(attributes).to_json, status: :created
   end

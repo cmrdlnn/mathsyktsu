@@ -20,12 +20,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate_redactor!
-    user = authenticate!
-    raise UserErrors::NotAuthorized if user.role != 'redactor'
+    authenticate!('redactor')
   end
 
-  def authenticate!
-    UsersService.authenticate!(authorization_header)
+  def authenticate!(role = nil)
+    UsersService.authenticate!(authorization_header, role)
   end
 
   private

@@ -14,9 +14,9 @@ class Sidebar extends Component {
       const { subroutes } = routes[path];
       const HOC = subroutes
         ? (props) => {
-          const { SidebarItems } = pages;
+          const { SidebarLinks } = pages;
           return (
-            <SidebarItems
+            <SidebarLinks
               items={{ [path]: routes[path].title, ...subroutes }}
               key={path}
               {...props}

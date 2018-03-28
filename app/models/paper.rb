@@ -6,10 +6,11 @@ class Paper < ApplicationRecord
   validates :autors, presence: true
   validates :description, presence: true
   validates :keywords, presence: true
+
   belongs_to :issue
 
   def delete
     FileHelper.delete_file(attachment, 'articles')
-    destroy
+    super
   end
 end

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 function Jubilees() {
   return (
-    <div className="main-content">
+    <Fragment>
       <img className="title" src="/images/jubilees.png" alt="Юбиляры" />
       <p className="caption">
         Юбиляры
@@ -59,7 +59,7 @@ function Jubilees() {
           Сердечно поздравляем Вас с юбилеем и желаем здоровья, благополучия и творческих успехов!
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
 

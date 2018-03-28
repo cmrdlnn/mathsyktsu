@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 function DistributionAndSubscription() {
   return (
-    <div className="main-content">
+    <Fragment>
       <img className="title" src="/images/title.png" alt="О журнале" />
       <p className="caption">
         Распространение и подписка
@@ -13,7 +13,7 @@ function DistributionAndSubscription() {
         <p className="main-description-title">РАСПРОСТРАНЕНИЕ</p>
         Приобрести журнал можно в книжной лавке СыктГУ по адресу: Сыктывкар, Октябрьский пр., д.55, главный корпус, 1 этаж (рядом со входом).
       </div>
-    </div>
+    </Fragment>
   );
 }
 

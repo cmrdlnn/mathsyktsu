@@ -5,25 +5,31 @@ module RubricsService
     def initialize(params)
       parameters = permit_params(params)
       @id = parameters[:id]
-      @title = parameters[:title]
+      @data = parameters[:rubric]
     end
 
     def update
-      rubric.update(title).to_json
+      rubric.update!(data).to_json
+    rescue ActiveRecord::RecordInvalid
+      dublicate!
     end
 
     private
 
     attr_reader :id
 
-    attr_reader :title
+    attr_reader :data
+
+    def dublicate!
+      raise RubricErrors::Dublicate
+    end
 
     def rubric
       Rubric.find(id)
     end
 
     def permit_params(params)
-      params.require(:rubric).permit(:id, :title)
+      params.permit(:id, rubric: :title)
     end
   end
 end

@@ -2,20 +2,21 @@
 
 module UsersService
   class Authenticate
-    def initialize(authorization_header)
+    def initialize(authorization_header, role = nil)
       @credentials = payload(authorization_header)
+      @role = role
       check_crendentials!
     end
 
     def authenticate!
       user = load_user
       check_user!(user)
-      user
+      check_role!(user) if role
     end
 
     private
 
-    attr_reader :credentials
+    attr_reader :credentials, :role
 
     def check_crendentials!
       return if credentials && JsonWebToken.valid_payload(credentials.first)
@@ -24,6 +25,10 @@ module UsersService
 
     def check_user!(user)
       not_authorized! unless user
+    end
+
+    def check_role!(user)
+      not_authorized! unless user.role == role
     end
 
     def not_authorized!

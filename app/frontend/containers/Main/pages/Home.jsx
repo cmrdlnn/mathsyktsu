@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 function MainPage() {
   return (
-    <div className="main-content">
+    <Fragment>
       <img className="title" src="/images/title.png" alt="О журнале" />
       <p className="caption">
         Слово главного редактора
@@ -34,7 +34,7 @@ function MainPage() {
           Размещаемые на данном сайте материалы - это копии печатного сборника.
         </p>
       </div>
-    </div>
+    </Fragment>
   );
 }
 

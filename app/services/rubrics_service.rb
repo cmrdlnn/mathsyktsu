@@ -14,6 +14,6 @@ module RubricsService
   end
 
   def self.destroy(params)
-    Destroy.new(params).delete
+    Destroy.new(params).destroy
   end
 end

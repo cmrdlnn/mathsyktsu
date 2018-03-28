@@ -5,7 +5,7 @@ import { JSONRequest } from 'api';
 import { LOGIN } from '../constants';
 
 export default function (data) {
-  return (dispatch) => {
+  return dispatch => (
     JSONRequest('/users/login', { user: data })
       .then(response => response.json(), response => response.json())
       .then((json) => {
@@ -24,6 +24,6 @@ export default function (data) {
           type: LOGIN,
           payload,
         });
-      });
-  };
+      })
+  );
 }

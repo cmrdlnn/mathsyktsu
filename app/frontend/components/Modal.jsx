@@ -45,16 +45,19 @@ const Modal = ({
 
 Modal.defaultProps = {
   bodyClass: 'login-modal',
+  children: null,
   closeButtonColor: 'warning',
   footer: null,
   footerClass: 'login-modal-wrapper',
+  header: null,
   headerClass: 'login-modal-wrapper',
+  toggle: () => {},
   wrapper: Fragment,
 };
 
 Modal.propTypes = {
   bodyClass: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   closeButtonColor: PropTypes.string,
   footer: PropTypes.oneOfType([
     PropTypes.node,
@@ -64,11 +67,14 @@ Modal.propTypes = {
   header: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.string,
-  ]).isRequired,
+  ]),
   headerClass: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired,
-  wrapper: PropTypes.func,
+  toggle: PropTypes.func,
+  wrapper: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.symbol,
+  ]),
 };
 
 export default Modal;
