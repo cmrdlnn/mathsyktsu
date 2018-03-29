@@ -8,6 +8,18 @@ class SidebarMenu extends Component {
     this.state = { collapsedItems: [] };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { activeItem, activeSubitem, items } = nextProps;
+
+    if (!this.props.activeSubitem && activeSubitem) {
+      const activeItemIndex = items.findIndex(item => item.id === activeItem);
+
+      if (!this.state.collapsedItems[activeItemIndex]) {
+        this.toggle(activeItemIndex);
+      }
+    }
+  }
+
   toggle = (itemIndex) => {
     const { collapsedItems } = this.state;
     const collapsed = [...collapsedItems];

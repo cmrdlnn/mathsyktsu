@@ -5,7 +5,7 @@ import Field from 'components/Field';
 import Form from 'components/Form';
 
 const RubricUpdating = ({ onUpdate, rubric }) => (
-  <Form buttonText="Изменить" onSubmit={onUpdate}>
+  <Form buttonText="Изменить" onSubmit={(data) => { onUpdate(rubric.id, data); }}>
     <Field
       defaultValue={rubric && rubric.title}
       key={rubric && rubric.title}

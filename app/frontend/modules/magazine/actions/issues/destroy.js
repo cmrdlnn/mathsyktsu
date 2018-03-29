@@ -1,4 +1,4 @@
-import { request } from 'api';
+import request from 'api';
 
 import { DESTROY_ISSUE } from '../../constants';
 

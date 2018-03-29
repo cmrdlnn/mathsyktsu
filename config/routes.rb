@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :issues, only: %i[index create update destroy]
   get 'issues/:id/download', to: 'issues#download'
+  get 'issues/:id/papers', to: 'issues#papers'
 
   resources :papers, only: %i[create show update destroy]
   get 'papers/:id/download', to: 'papers#download'

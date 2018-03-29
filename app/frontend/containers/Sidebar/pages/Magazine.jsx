@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { indexIssues, indexRubrics, setActiveIssue, setActiveRubric } from 'modules/magazine';
+import {
+  indexIssues,
+  indexPapers,
+  indexRubrics,
+  setActiveIssue,
+  setActiveRubric,
+} from 'modules/magazine';
 
 import SidebarMenu from 'components/SidebarMenu';
 
@@ -14,6 +20,14 @@ class Magazine extends Component {
     rubricsIndex()
       .then(() => issuesIndex())
       .then(() => { this.makeItemsActive(); });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { issues: { active }, papersIndex } = nextProps;
+
+    if (this.props.issues.active !== active) {
+      papersIndex(active);
+    }
   }
 
   makeItemsActive = () => {
@@ -102,6 +116,7 @@ const mapStateToProps = ({ magazine: { issues, rubrics } }) => ({ issues, rubric
 
 const mapDispatchToProps = dispatch => ({
   issuesIndex: bindActionCreators(indexIssues, dispatch),
+  papersIndex: bindActionCreators(indexPapers, dispatch),
   rubricsIndex: bindActionCreators(indexRubrics, dispatch),
   setIssue: bindActionCreators(setActiveIssue, dispatch),
   setRubric: bindActionCreators(setActiveRubric, dispatch),

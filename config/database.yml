@@ -9,23 +9,22 @@ default: &default
   encoding: utf8
   reconnect: false
   pool: 5
-  password: 12345678
-  username: 'MathSyktsu'
+  password: 123456
+  username: 'user_mathsyktsu'
   host: localhost
   port: 3306
 
-
 development:
   <<: *default
-  database: mysql_development
+  database: mathsyktsu
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: mysql_test
+  database: mathsyktsu_test
 
 production:
   <<: *default
-  database: mysql_production
+  database: mathsyktsu

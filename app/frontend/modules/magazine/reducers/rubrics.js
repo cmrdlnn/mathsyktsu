@@ -39,7 +39,7 @@ export default function (state = initialState, { type, payload }) {
 
     case UPDATE_RUBRIC: {
       const index = findIndexById(payload.id, state.all);
-      return { ...state, all: sliceByIndex(index, state.all, payload) };
+      return { ...state, all: sliceByIndex(index, state.all, payload.rubric) };
     }
 
     default:

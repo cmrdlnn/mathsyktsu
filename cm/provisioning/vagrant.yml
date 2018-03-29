@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Install apt packages
+      apt:
+        name: '{{ item }}'
+        update_cache: yes
+      with_items:
+        - git
+        - vim
+        - mc
+        - build-essential
+
+    - name: Add autofollow
+      lineinfile:
+        dest: "/home/vagrant/.bashrc"
+        regexp: "^cd ~/MathSyktsu"
+        line: "cd ~/MathSyktsu"
+
+  roles:
+    - role: ruby-brightbox
+    - role: mysql
+    - role: apt
+    - role: ntp
+    - role: nodejs

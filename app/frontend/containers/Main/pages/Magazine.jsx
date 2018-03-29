@@ -5,13 +5,10 @@ import { bindActionCreators } from 'redux';
 
 import {
   createIssue,
-  createPaper,
   createRubric,
   destroyIssue,
-  destroyPaper,
   destroyRubric,
   updateIssue,
-  updatePaper,
   updateRubric,
 } from 'modules/magazine';
 
@@ -20,6 +17,8 @@ import ConfirmModal from 'components/ConfirmModal';
 
 import IssueCreation from '../components/IssueCreation';
 import IssueUpdating from '../components/IssueUpdating';
+import LanguageMenu from '../components/LanguageMenu';
+import Papers from '../components/Papers';
 import RubricCreation from '../components/RubricCreation';
 import RubricUpdating from '../components/RubricUpdating';
 
@@ -28,7 +27,6 @@ class Magazine extends React.Component {
     super(props);
     this.state = {
       body: null,
-      english: false,
       header: null,
       isOpen: false,
       onConfirm: null,
@@ -96,12 +94,12 @@ class Magazine extends React.Component {
   }
 
   issuesComponents = () => {
-    const { issue, issueCreate, issueUpdate } = this.props;
+    const { issue, issueCreate, issueUpdate, rubric } = this.props;
 
     let components = [
       {
         Component: IssueCreation,
-        props: { onCreate: issueCreate },
+        props: { onCreate: issueCreate, rubric },
       },
     ];
 
@@ -122,16 +120,17 @@ class Magazine extends React.Component {
   }
 
   render() {
-    const { fetching, isRedactor } = this.props;
-    const { body, english, header, isOpen, onConfirm, toggle } = this.state;
+    if (this.props.fetching) return null;
 
-    if (fetching) return null;
+    const { isRedactor, isRussian, issue, rubric } = this.props;
+    const { body, english, header, isOpen, onConfirm, toggle } = this.state;
 
     return (
       <Fragment>
         <img className="title" src="/images/magazine.png" alt="Вестник" />
+        <LanguageMenu />
         <p className="caption">
-          { english ? 'Vestnik Magazine' : 'Вестник' }
+          { isRussian ? 'Вестник' : 'Vestnik magazine' }
         </p>
         {
           isRedactor &&
@@ -140,15 +139,32 @@ class Magazine extends React.Component {
             title="Управление рубриками"
           />
         }
-        <div className="main-description">
-          {
-            isRedactor &&
-            <ButtonsMenu
-              items={this.issuesComponents()}
-              title="Управление экземплярами журнала"
-            />
-          }
-        </div>
+        {
+          issue ? (
+            <div className="main-description">
+              {
+                isRedactor &&
+                <ButtonsMenu
+                  items={this.issuesComponents()}
+                  title="Управление экземплярами журнала"
+                />
+              }
+              <p className="caption">
+                { isRussian ? issue.title : issue.english_title || issue.title }
+              </p>
+            </div>
+          ) : (
+            <p className="caption">
+              {
+                isRussian ? (
+                  'Не найдено ни одного выпуска журнала в данной рубрике'
+                ) : (
+                  'No issues found in this rubric'
+                )
+              }
+            </p>
+          )
+        }
         {
           isRedactor &&
           <ConfirmModal
@@ -180,9 +196,6 @@ Magazine.propTypes = {
   issueCreate: PropTypes.func.isRequired,
   issueDestroy: PropTypes.func.isRequired,
   issueUpdate: PropTypes.func.isRequired,
-  paperCreate: PropTypes.func.isRequired,
-  paperDestroy: PropTypes.func.isRequired,
-  paperUpdate: PropTypes.func.isRequired,
   rubric: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -192,9 +205,14 @@ Magazine.propTypes = {
   rubricUpdate: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ user: { role }, magazine: { issues, rubrics } }) => ({
+const mapStateToProps = ({
+  language,
+  magazine: { issues, rubrics },
+  user: { role },
+}) => ({
   fetching: issues.fetching || rubrics.fetching,
   isRedactor: role === 'redactor',
+  isRussian: language === 'russian',
   issue: issues.all.find(issue => issue.id === issues.active),
   rubric: rubrics.all.find(rubric => rubric.id === rubrics.active),
 });
@@ -203,9 +221,6 @@ const mapDispatchToProps = dispatch => ({
   issueCreate: bindActionCreators(createIssue, dispatch),
   issueDestroy: bindActionCreators(destroyIssue, dispatch),
   issueUpdate: bindActionCreators(updateIssue, dispatch),
-  paperCreate: bindActionCreators(createPaper, dispatch),
-  paperDestroy: bindActionCreators(destroyPaper, dispatch),
-  paperUpdate: bindActionCreators(updatePaper, dispatch),
   rubricCreate: bindActionCreators(createRubric, dispatch),
   rubricDestroy: bindActionCreators(destroyRubric, dispatch),
   rubricUpdate: bindActionCreators(updateRubric, dispatch),

@@ -5,7 +5,7 @@ import Field from 'components/Field';
 import Form from 'components/Form';
 
 const IssueUpdating = ({ onUpdate, issue }) => (
-  <Form buttonText="Изменить" onSubmit={onUpdate}>
+  <Form buttonText="Изменить" onSubmit={(data) => { onUpdate(issue.id, data); }}>
     <Field
       defaultValue={issue && issue.title}
       key={issue && issue.title}

@@ -1,0 +1,3 @@
+[local]
+MathSyktsu ansible_connection=local
+

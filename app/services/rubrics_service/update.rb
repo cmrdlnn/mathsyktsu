@@ -16,9 +16,7 @@ module RubricsService
 
     private
 
-    attr_reader :id
-
-    attr_reader :data
+    attr_reader :id, :data
 
     def dublicate!
       raise RubricErrors::Dublicate

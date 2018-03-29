@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import user from './user';
+import language from './language';
 import magazine from './magazine';
+import user from './user';
 
 export default combineReducers({
+  language,
   magazine,
   user,
 });

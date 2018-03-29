@@ -1,0 +1,29 @@
+---
+# packages
+apt_packages:
+  - build-essential
+  - curl
+  - git
+  - libmysqlclient-dev
+  - mc
+  - ruby2.3-dev
+  - vim
+  - wget
+  - zlib1g-dev
+
+# nodejs
+nodejs_version: 'v8.10.0'
+
+# ruby version with brightbox`s path
+ruby_version: 2.3
+
+# mysql
+mysql_databases:
+  - name: mathsyktsu
+    collation: "utf8_general_ci"
+    encoding: "utf8"
+mysql_users:
+  - name: user_mathsyktsu
+    pass: 123456
+    priv: "*.*:ALL"
+    host: "%"

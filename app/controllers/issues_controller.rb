@@ -10,12 +10,8 @@ class IssuesController < ApplicationController
     render json: result
   end
 
-  def download
-    file = service.download(params)
-    send_file(*file)
-  end
-
   def create
+    p params
     new_issue = service.create(params)
     render json: new_issue, status: :created
   end
@@ -27,5 +23,15 @@ class IssuesController < ApplicationController
   def update
     updated_issue = service.update(params)
     render json: updated_issue
+  end
+
+  def download
+    file = service.download(params)
+    send_file(*file)
+  end
+
+  def papers
+    papers_by_issue = service.papers(params)
+    render json: papers_by_issue
   end
 end

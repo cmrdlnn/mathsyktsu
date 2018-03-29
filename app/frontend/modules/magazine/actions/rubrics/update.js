@@ -6,10 +6,10 @@ export default function (id, rubric) {
   return dispatch => (
     JSONRequest(`/rubrics/${id}`, { rubric }, 'PUT')
       .then(response => response.json())
-      .then((payload) => {
+      .then(() => {
         dispatch({
           type: UPDATE_RUBRIC,
-          payload,
+          payload: { id, rubric },
         });
       })
   );
