@@ -15,7 +15,12 @@ node_modules
 !/tmp/.keep
 
 /db/schema.rb
-/private/**/*
+
+/magazine/issues/*
+!/magazine/issues/.keep
+/magazine/rubrics/*
+!/magazine/rubrics/.keep
+
 /public/**/*
 !/public/images
 !/public/404.html

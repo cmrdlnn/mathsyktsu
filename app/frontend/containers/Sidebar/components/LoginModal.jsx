@@ -39,7 +39,6 @@ class LoginModal extends Component {
           placeholder="Введите E-Mail"
           required
           title="E-Mail"
-          type="email"
         />
         <Field
           name="password"

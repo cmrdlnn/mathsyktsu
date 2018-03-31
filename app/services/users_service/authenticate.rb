@@ -24,7 +24,8 @@ module UsersService
     end
 
     def check_user!(user)
-      not_authorized! unless user
+      return if user && token_is_actual?(user)
+      not_authorized!
     end
 
     def check_role!(user)
@@ -33,6 +34,10 @@ module UsersService
 
     def not_authorized!
       raise UserErrors::NotAuthorized
+    end
+
+    def token_is_actual?(user)
+      user.updated_at.utc < Time.at(credentials.first['created_at']).utc
     end
 
     def load_user

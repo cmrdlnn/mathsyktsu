@@ -1,12 +1,12 @@
 import jwtDecode from 'jwt-decode';
 
-import { JSONRequest } from 'api';
+import request from 'api';
 
 import { LOGIN } from '../constants';
 
 export default function (data) {
   return dispatch => (
-    JSONRequest('/users/login', { user: data })
+    request('/users/login', data, 'POST')
       .then(response => response.json(), response => response.json())
       .then((json) => {
         const { error, token } = json;

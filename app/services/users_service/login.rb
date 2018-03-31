@@ -26,7 +26,7 @@ module UsersService
     end
 
     def permit_params(params)
-      params.require(:user).permit(:email, :password)
+      params.permit(:email, :password)
     end
   end
 end

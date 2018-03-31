@@ -21,11 +21,14 @@ class JsonWebToken
     private
 
     def meta
-      { exp: 7.days.from_now.to_i }
+      {
+        created_at: Time.now.to_i,
+        exp: 7.days.from_now.to_i
+      }
     end
 
     def expired(payload)
-      Time.at(payload['exp']) < Time.now
+      Time.at(payload['exp']).utc < Time.now.utc
     end
 
     def secret
