@@ -5,13 +5,12 @@ module RubricsService
     def initialize(params)
       parameters = permit_params(params)
       @id = parameters[:id]
-      @data = parameters[:rubric]
+      @data = parameters.except(:id)
     end
 
     def update
-      rubric.update!(data).to_json
-    rescue ActiveRecord::RecordInvalid
-      dublicate!
+      dublicate! unless rubric.update!(data)
+      rubric.to_json
     end
 
     private
@@ -27,7 +26,7 @@ module RubricsService
     end
 
     def permit_params(params)
-      params.permit(:id, rubric: :title)
+      params.permit(:id, :title)
     end
   end
 end

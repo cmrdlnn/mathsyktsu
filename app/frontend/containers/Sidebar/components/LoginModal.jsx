@@ -8,6 +8,11 @@ import Form from 'components/Form';
 import Modal from 'components/Modal';
 
 class LoginModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { emailInputType: 'email' };
+  }
+
   componentWillReceiveProps(nextProps) {
     const { role, toggle } = this.props;
     if (!role && nextProps.role) {
@@ -23,6 +28,19 @@ class LoginModal extends Component {
     <Form onSubmit={this.handleSubmit} withoutButton {...props} />
   )
 
+  handleEmailInputChange = (e) => {
+    this.handleChange();
+    if (e.target.value === 'redactor') {
+      this.setState({ emailInputType: 'text' });
+    } else if (this.state.emailInputType !== 'redactor') {
+      this.setState({ emailInputType: 'email' });
+    }
+  }
+
+  handleChange = () => {
+    if (this.props.error) this.props.clearUserData();
+  }
+
   render() {
     const { error, isOpen, toggle } = this.props;
 
@@ -36,12 +54,15 @@ class LoginModal extends Component {
       >
         <Field
           name="email"
+          onChange={this.handleEmailInputChange}
           placeholder="Введите E-Mail"
           required
           title="E-Mail"
+          type={this.state.emailInputType}
         />
         <Field
           name="password"
+          onChange={this.handleChange}
           placeholder="Введите пароль"
           required
           title="Пароль"
@@ -60,6 +81,7 @@ LoginModal.defaultProps = {
 };
 
 LoginModal.propTypes = {
+  clearUserData: PropTypes.func.isRequired,
   error: PropTypes.string,
   isOpen: PropTypes.bool,
   login: PropTypes.func.isRequired,

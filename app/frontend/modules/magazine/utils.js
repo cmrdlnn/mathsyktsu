@@ -1,7 +1,6 @@
 export const sliceByIndex = (index, items, updatedData) => {
   if (index < 0) return items;
-  const updated = updatedData ? [{ ...items[index], ...updatedData }] : [];
-  console.log(updated)
+  const updated = updatedData ? [updatedData] : [];
   return [...items.slice(0, index), ...updated, ...items.slice(index + 1)];
 };
 

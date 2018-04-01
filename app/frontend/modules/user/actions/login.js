@@ -17,7 +17,7 @@ export default function (data) {
           payload = json;
         } else {
           localStorage.setItem('JWT', token);
-          payload = { role: jwtDecode(token).role };
+          payload = jwtDecode(token);
         }
 
         dispatch({

@@ -21,7 +21,7 @@ export default function (state = initialState, { type, payload }) {
     }
 
     case CREATE_RUBRIC: {
-      return { ...state, all: [...state.all, payload] };
+      return { ...state, active: payload.id, all: [...state.all, payload] };
     }
 
     case DESTROY_RUBRIC: {
@@ -39,7 +39,7 @@ export default function (state = initialState, { type, payload }) {
 
     case UPDATE_RUBRIC: {
       const index = findIndexById(payload.id, state.all);
-      return { ...state, all: sliceByIndex(index, state.all, payload.rubric) };
+      return { ...state, all: sliceByIndex(index, state.all, payload) };
     }
 
     default:

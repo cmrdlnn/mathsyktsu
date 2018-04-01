@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { login, logout } from 'modules/user';
+import { clearUserData, login, logout } from 'modules/user';
 
 import LoginModal from '../components/LoginModal';
 
@@ -27,7 +27,7 @@ class AuthenticationManagement extends Component {
   }
 
   render() {
-    const { enter, exit, user } = this.props;
+    const { clearUser, enter, exit, user } = this.props;
 
     return (
       <Fragment>
@@ -35,6 +35,7 @@ class AuthenticationManagement extends Component {
           isOpen={this.state.loginModalIsOpen}
           login={enter}
           toggle={this.toggle}
+          clearUserData={clearUser}
           {...user}
         />
         <div className="auth">
@@ -68,6 +69,7 @@ class AuthenticationManagement extends Component {
 }
 
 AuthenticationManagement.propTypes = {
+  clearUser: PropTypes.func.isRequired,
   enter: PropTypes.func.isRequired,
   exit: PropTypes.func.isRequired,
   user: PropTypes.shape({
@@ -82,6 +84,7 @@ function mapStateToProps({ user }) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    clearUser: bindActionCreators(clearUserData, dispatch),
     enter: bindActionCreators(login, dispatch),
     exit: bindActionCreators(logout, dispatch),
   };

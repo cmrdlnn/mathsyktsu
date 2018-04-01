@@ -8,7 +8,7 @@ class Issue < ApplicationRecord
   has_many :papers, dependent: :destroy
 
   def destroy
-    FileHelper.delete_file(attachment, 'issues')
     super
+    FileHelper.delete(attachment, IssuesService::PATH)
   end
 end

@@ -11,7 +11,6 @@ class IssuesController < ApplicationController
   end
 
   def create
-    p params
     new_issue = service.create(params)
     render json: new_issue, status: :created
   end

@@ -4,12 +4,12 @@ import { UPDATE_ISSUE } from '../../constants';
 
 export default function (id, issue) {
   return dispatch => (
-    request(`/issues/${id}`, { issue }, 'PUT')
+    request(`/issues/${id}`, issue, 'PUT')
       .then(response => response.json())
-      .then(() => {
+      .then((payload) => {
         dispatch({
           type: UPDATE_ISSUE,
-          payload: { id, issue },
+          payload,
         });
       })
   );

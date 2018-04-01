@@ -10,7 +10,7 @@ class Paper < ApplicationRecord
   belongs_to :issue
 
   def delete
-    FileHelper.delete_file(attachment, 'articles')
     super
+    FileHelper.delete(attachment, PapersService::PATH)
   end
 end

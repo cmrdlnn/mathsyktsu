@@ -2,22 +2,42 @@
 
 module IssuesService
   class Create
-    ATTRS = %i[title english_title rubric_id].freeze
+    ATTRS = %i[english_title file rubric_id title].freeze
 
     def initialize(params)
-      @attributes = permit_params(params)
+      parameters = permit_params(params)
+      @data = parameters.except(:file)
+      @file = parameters[:file]
     end
 
     def create
-      Issue.create!(attributes).to_json
+      save_file
+      Issue.create!(data).to_json
     end
 
     private
 
-    attr_reader :attributes
+    attr_reader :data, :file
+
+    def save_file
+      return unless file
+      name_of_file = filename
+      FileUtils.mv file.tempfile, PATH.join(name_of_file)
+      update_data(name_of_file)
+    end
+
+    def filename
+      FileHelper.filename(file.original_filename, PATH)
+    end
+
+    def update_data(attachment)
+      data[:attachment] = attachment
+      data[:filename] = file.original_filename
+      data[:mime_type] = file.content_type
+    end
 
     def permit_params(params)
-      params.require(:issue).permit(*ATTRS)
+      params.permit(*ATTRS)
     end
   end
 end

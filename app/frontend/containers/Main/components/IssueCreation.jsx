@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import Field from 'components/Field';
 import Form from 'components/Form';
 
-const IssueCreation = ({ onCreate }) => (
-  <Form onSubmit={onCreate}>
+const IssueCreation = ({ onCreate, rubric }) => (
+  <Form onSubmit={(data) => { onCreate(data, rubric); }}>
     <Field
       name="title"
       placeholder="Введите название нового экземпляра журнала..."
@@ -27,6 +27,12 @@ const IssueCreation = ({ onCreate }) => (
   </Form>
 );
 
-IssueCreation.propTypes = { onCreate: PropTypes.func.isRequired };
+IssueCreation.propTypes = {
+  onCreate: PropTypes.func.isRequired,
+  rubric: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default IssueCreation;

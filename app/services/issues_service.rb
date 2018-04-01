@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module IssuesService
+  PATH = Rails.root.join('magazine', 'issues')
+
   def self.index
     Index.index
   end

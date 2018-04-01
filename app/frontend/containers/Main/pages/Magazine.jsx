@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,17 +12,14 @@ import {
   updateRubric,
 } from 'modules/magazine';
 
-import ButtonsMenu from 'components/ButtonsMenu';
 import ConfirmModal from 'components/ConfirmModal';
 
-import IssueCreation from '../components/IssueCreation';
-import IssueUpdating from '../components/IssueUpdating';
-import LanguageMenu from '../components/LanguageMenu';
-import Papers from '../components/Papers';
-import RubricCreation from '../components/RubricCreation';
-import RubricUpdating from '../components/RubricUpdating';
+import LanguageMenu from '../containers/LanguageMenu';
+import Issue from '../containers/Issue';
+import RubricsManagment from '../components/RubricsManagment';
+import IssuesManagment from '../components/IssuesManagment';
 
-class Magazine extends React.Component {
+class Magazine extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,100 +27,31 @@ class Magazine extends React.Component {
       header: null,
       isOpen: false,
       onConfirm: null,
+      toggle: null,
     };
   }
 
-  toggleRubricDestroying = () => {
-    const { rubric, rubricDestroy } = this.props;
-    const { isOpen } = this.state;
-
-    if (isOpen) {
-      this.setState({ isOpen: !isOpen });
-    } else {
-      this.setState({
-        body: 'Внимание! Вместе с текущей рубрикой удалятся все её экземпляры журнала и статьи.',
-        header: 'Вы действительно хотите удалить текущую рубрику?',
-        isOpen: !isOpen,
-        onConfirm: () => rubricDestroy(rubric.id),
-        toggle: this.toggleRubricDestroying,
-      });
-    }
-  }
-
-  rubricsComponents = () => {
-    const { rubric, rubricCreate, rubricUpdate } = this.props;
-
-    let components = [
-      {
-        Component: RubricCreation,
-        props: { onCreate: rubricCreate },
-      },
-    ];
-
-    if (rubric) {
-      components = components.concat([
-        {
-          Component: RubricUpdating,
-          props: {
-            onUpdate: rubricUpdate,
-            rubric,
-          },
-        },
-        { onClick: this.toggleRubricDestroying },
-      ]);
-    }
-
-    return components;
-  }
-
-  toggleIssueDestroying = () => {
-    const { issue, issueDestroy } = this.props;
-    const { isOpen } = this.state;
-
-    if (isOpen) {
-      this.setState({ isOpen: !isOpen });
-    } else {
-      this.setState({
-        body: 'Внимание! Вместе с текущим экземпляром журнала удалятся все его статьи.',
-        header: 'Вы действительно хотите удалить текущий экземпляр журнала?',
-        isOpen: !isOpen,
-        onConfirm: () => issueDestroy(issue.id),
-        toggle: this.toggleIssueDestroying,
-      });
-    }
-  }
-
-  issuesComponents = () => {
-    const { issue, issueCreate, issueUpdate, rubric } = this.props;
-
-    let components = [
-      {
-        Component: IssueCreation,
-        props: { onCreate: issueCreate, rubric },
-      },
-    ];
-
-    if (issue) {
-      components = components.concat([
-        {
-          Component: IssueUpdating,
-          props: {
-            issue,
-            onUpdate: issueUpdate,
-          },
-        },
-        { onClick: this.toggleIssueDestroying },
-      ]);
-    }
-
-    return components;
+  setModalProps = (modalProps) => {
+    this.setState(modalProps);
   }
 
   render() {
     if (this.props.fetching) return null;
 
-    const { isRedactor, isRussian, issue, rubric } = this.props;
-    const { body, english, header, isOpen, onConfirm, toggle } = this.state;
+    const {
+      isRedactor,
+      isRussian,
+      issue,
+      issueCreate,
+      issueDestroy,
+      issueUpdate,
+      rubric,
+      rubricCreate,
+      rubricDestroy,
+      rubricUpdate,
+    } = this.props;
+
+    const { body, header, isOpen, onConfirm, toggle } = this.state;
 
     return (
       <Fragment>
@@ -133,48 +61,60 @@ class Magazine extends React.Component {
           { isRussian ? 'Вестник' : 'Vestnik magazine' }
         </p>
         {
-          isRedactor &&
-          <ButtonsMenu
-            items={this.rubricsComponents()}
-            title="Управление рубриками"
-          />
-        }
-        {
-          issue ? (
-            <div className="main-description">
-              {
-                isRedactor &&
-                <ButtonsMenu
-                  items={this.issuesComponents()}
-                  title="Управление экземплярами журнала"
-                />
-              }
-              <p className="caption">
-                { isRussian ? issue.title : issue.english_title || issue.title }
-              </p>
-            </div>
-          ) : (
-            <p className="caption">
-              {
-                isRussian ? (
-                  'Не найдено ни одного выпуска журнала в данной рубрике'
-                ) : (
-                  'No issues found in this rubric'
+          isRedactor
+          && (
+            <Fragment>
+              <RubricsManagment
+                modalIsOpen={isOpen}
+                rubric={rubric}
+                rubricCreate={rubricCreate}
+                rubricDestroy={rubricDestroy}
+                rubricUpdate={rubricUpdate}
+                sendModalProps={this.setModalProps}
+              />
+              { rubric
+                && (
+                  <ConfirmModal
+                    header={header}
+                    isOpen={isOpen}
+                    onConfirm={onConfirm}
+                    toggle={toggle}
+                  >
+                    { body }
+                  </ConfirmModal>
                 )
               }
-            </p>
+            </Fragment>
           )
         }
         {
-          isRedactor &&
-          <ConfirmModal
-            header={header}
-            isOpen={isOpen}
-            onConfirm={onConfirm}
-            toggle={toggle}
-          >
-            { body }
-          </ConfirmModal>
+          rubric ? (
+            <Fragment>
+              { isRedactor
+                && (
+                  <IssuesManagment
+                    issue={issue}
+                    issueCreate={issueCreate}
+                    issueDestroy={issueDestroy}
+                    issueUpdate={issueUpdate}
+                    modalIsOpen={isOpen}
+                    rubric={rubric}
+                    sendModalProps={this.setModalProps}
+                  />
+                )
+              }
+              <Issue
+                isRedactor={isRedactor}
+                isRussian={isRussian}
+                issue={issue}
+                rubric={rubric}
+              />
+            </Fragment>
+          ) : (
+            <p className="caption">
+              { isRussian ? 'Не найдено ни одной рубрики' : 'Not found any rubric' }
+            </p>
+          )
         }
       </Fragment>
     );
@@ -189,6 +129,7 @@ Magazine.defaultProps = {
 Magazine.propTypes = {
   fetching: PropTypes.bool.isRequired,
   isRedactor: PropTypes.bool.isRequired,
+  isRussian: PropTypes.bool.isRequired,
   issue: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,

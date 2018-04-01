@@ -16,15 +16,15 @@ module IssuesService
     attr_reader :issue
 
     def path
-      "#{Rails.root}/private/issues/#{issue.attachment}"
+      PATH.join(issue.attachment)
     end
 
     def filename_and_type
       { filename: issue.filename, type: issue.mime_type }
     end
 
-    def issue_params
-      params.require(:issue).permit(:id)
+    def issue_params(params)
+      params.permit(:id)
     end
   end
 end
