@@ -13,7 +13,7 @@ module IssuesService
 
     def update
       update_file
-      issue.update(data)
+      issue.update!(data)
       issue.to_json(only: %i[english_title filename id rubric_id title])
     rescue ActiveRecord::RecordInvalid
       dublicate!

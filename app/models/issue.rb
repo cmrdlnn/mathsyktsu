@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class Issue < ApplicationRecord
-  validates :title, presence: true
+  validates :title,
+            presence: true,
+            uniqueness: { case_sensitive: false }
+
+  validates :english_title,
+            uniqueness: { case_sensitive: false }
 
   belongs_to :rubric
 

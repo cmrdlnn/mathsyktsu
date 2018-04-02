@@ -22,14 +22,6 @@ class Magazine extends Component {
       .then(() => { this.makeItemsActive(); });
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { issues: { active }, papersIndex } = nextProps;
-
-    if (this.props.issues.active !== active) {
-      papersIndex(active);
-    }
-  }
-
   makeItemsActive = () => {
     const {
       issues: { all: issues },

@@ -5,19 +5,26 @@ import { bindActionCreators } from 'redux';
 
 import {
   createIssue,
+  createPaper,
   createRubric,
   destroyIssue,
+  destroyPaper,
   destroyRubric,
+  indexPapers,
   updateIssue,
+  updatePaper,
   updateRubric,
 } from 'modules/magazine';
 
 import ConfirmModal from 'components/ConfirmModal';
 
-import LanguageMenu from '../containers/LanguageMenu';
 import Issue from '../containers/Issue';
-import RubricsManagment from '../components/RubricsManagment';
+import LanguageMenu from '../containers/LanguageMenu';
+import Papers from '../containers/Papers';
+
 import IssuesManagment from '../components/IssuesManagment';
+import PapersManagment from '../components/PapersManagment';
+import RubricsManagment from '../components/RubricsManagment';
 
 class Magazine extends Component {
   constructor(props) {
@@ -45,6 +52,11 @@ class Magazine extends Component {
       issueCreate,
       issueDestroy,
       issueUpdate,
+      paperCreate,
+      paperDestroy,
+      papers,
+      papersIndex,
+      paperUpdate,
       rubric,
       rubricCreate,
       rubricDestroy,
@@ -108,7 +120,19 @@ class Magazine extends Component {
                 isRussian={isRussian}
                 issue={issue}
                 rubric={rubric}
-              />
+              >
+                <PapersManagment
+                  issue={issue}
+                  paperCreate={paperCreate}
+                  paperDestroy={paperDestroy}
+                  paperUpdate={paperUpdate}
+                />
+                <Papers
+                  papers={papers}
+                  issue={issue}
+                  papersIndex={papersIndex}
+                />
+              </Issue>
             </Fragment>
           ) : (
             <p className="caption">
@@ -137,6 +161,10 @@ Magazine.propTypes = {
   issueCreate: PropTypes.func.isRequired,
   issueDestroy: PropTypes.func.isRequired,
   issueUpdate: PropTypes.func.isRequired,
+  paperCreate: PropTypes.func.isRequired,
+  paperDestroy: PropTypes.func.isRequired,
+  papersIndex: PropTypes.func.isRequired,
+  paperUpdate: PropTypes.func.isRequired,
   rubric: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -148,13 +176,14 @@ Magazine.propTypes = {
 
 const mapStateToProps = ({
   language,
-  magazine: { issues, rubrics },
+  magazine: { issues, papers, rubrics },
   user: { role },
 }) => ({
   fetching: issues.fetching || rubrics.fetching,
   isRedactor: role === 'redactor',
   isRussian: language === 'russian',
   issue: issues.all.find(issue => issue.id === issues.active),
+  papers,
   rubric: rubrics.all.find(rubric => rubric.id === rubrics.active),
 });
 
@@ -162,6 +191,10 @@ const mapDispatchToProps = dispatch => ({
   issueCreate: bindActionCreators(createIssue, dispatch),
   issueDestroy: bindActionCreators(destroyIssue, dispatch),
   issueUpdate: bindActionCreators(updateIssue, dispatch),
+  paperCreate: bindActionCreators(createPaper, dispatch),
+  paperDestroy: bindActionCreators(destroyPaper, dispatch),
+  papersIndex: bindActionCreators(indexPapers, dispatch),
+  paperUpdate: bindActionCreators(updatePaper, dispatch),
   rubricCreate: bindActionCreators(createRubric, dispatch),
   rubricDestroy: bindActionCreators(destroyRubric, dispatch),
   rubricUpdate: bindActionCreators(updateRubric, dispatch),

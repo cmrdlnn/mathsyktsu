@@ -1,10 +1,12 @@
-import { JSONRequest } from 'api';
+import request from 'api';
 
 import { CREATE_PAPER } from '../../constants';
 
-export default function (paper) {
+export default function (paper, issueId) {
+  paper.append('issue_id', issueId);
+
   return dispatch => (
-    JSONRequest('/papers', { paper })
+    request('/papers', paper, 'POST')
       .then(response => response.json())
       .then((payload) => {
         dispatch({

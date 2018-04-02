@@ -3,16 +3,21 @@
 module RubricsService
   class Create
     def initialize(params)
-      @attributes = permit_params(params)
+      @title = prepare_title(params)
     end
 
     def create
-      Rubric.create(attributes).to_json
+      Rubric.create(title: title).to_json
     end
 
     private
 
-    attr_reader :attributes
+    attr_reader :title
+
+    def prepare_title(params)
+      title = permit_params(params)[:title]
+      title.strip.downcase.capitalize
+    end
 
     def permit_params(params)
       params.permit(:title)

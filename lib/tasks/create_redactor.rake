@@ -31,8 +31,8 @@ task :create_redactor, %i[password email full_name] => [:environment] do |t, arg
     end
 
     logger.info { 'Учетная запись редактора успешно создана' }
-    logger.info { "Название учётной записи редактора (email): `#{redactor.email}`" }
-    logger.info { "Пароль учётной записи редактора: `#{attributes[:password]}`" }
+    logger.info { "Название учётной записи редактора (email): #{redactor.email}" }
+    logger.info { "Пароль учётной записи редактора: #{attributes[:password]}" }
   rescue => e
     p e.message
     logger.info { ERRORS_MESSAGES[e.message] }

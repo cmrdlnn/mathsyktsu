@@ -18,8 +18,8 @@ node_modules
 
 /magazine/issues/*
 !/magazine/issues/.keep
-/magazine/rubrics/*
-!/magazine/rubrics/.keep
+/magazine/papers/*
+!/magazine/papers/.keep
 
 /public/**/*
 !/public/images

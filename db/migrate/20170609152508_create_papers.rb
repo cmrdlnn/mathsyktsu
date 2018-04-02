@@ -5,8 +5,8 @@ class CreatePapers < ActiveRecord::Migration[5.1]
     create_table :papers do |t|
       t.string :title, null: false
       t.string :english_title, default: nil
-      t.string :rubric, null: false
-      t.string :english_rubric, default: nil
+      t.string :topic, null: false
+      t.string :english_topic, default: nil
       t.string :autors, null: false
       t.string :english_autors, default: nil
       t.string :keywords, null: false
