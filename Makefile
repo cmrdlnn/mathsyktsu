@@ -10,6 +10,15 @@ provision:
 migrate:
 	rails db:migrate
 
+create_db:
+	rails db:create
+
+drop_db:
+	rails db:drop
+
+create_redactor:
+	rake create_redactor
+
 npm:
 	npm i
 

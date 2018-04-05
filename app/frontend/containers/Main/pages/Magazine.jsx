@@ -110,7 +110,7 @@ class Magazine extends Component {
                     issueDestroy={issueDestroy}
                     issueUpdate={issueUpdate}
                     modalIsOpen={isOpen}
-                    rubric={rubric}
+                    rubricId={rubric.id}
                     sendModalProps={this.setModalProps}
                   />
                 )
@@ -121,15 +121,21 @@ class Magazine extends Component {
                 issue={issue}
                 rubric={rubric}
               >
-                <PapersManagment
-                  issue={issue}
-                  paperCreate={paperCreate}
-                  paperDestroy={paperDestroy}
-                  paperUpdate={paperUpdate}
-                />
+                { isRedactor
+                  && (
+                    <PapersManagment
+                      issue={issue}
+                      paperCreate={paperCreate}
+                      paperDestroy={paperDestroy}
+                      papersExists={!!papers.all.length && !papers.fetching}
+                      paperUpdate={paperUpdate}
+                    />
+                  )
+                }
                 <Papers
-                  papers={papers}
+                  isRussian={isRussian}
                   issue={issue}
+                  papers={papers}
                   papersIndex={papersIndex}
                 />
               </Issue>
@@ -155,6 +161,8 @@ Magazine.propTypes = {
   isRedactor: PropTypes.bool.isRequired,
   isRussian: PropTypes.bool.isRequired,
   issue: PropTypes.shape({
+    english_title: PropTypes.string,
+    filename: PropTypes.string,
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   }),
@@ -163,6 +171,25 @@ Magazine.propTypes = {
   issueUpdate: PropTypes.func.isRequired,
   paperCreate: PropTypes.func.isRequired,
   paperDestroy: PropTypes.func.isRequired,
+  papers: PropTypes.shape({
+    all: PropTypes.arrayOf(
+      PropTypes.shape({
+        autors: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        english_autors: PropTypes.string.isRequired,
+        english_description: PropTypes.string.isRequired,
+        english_keywords: PropTypes.string.isRequired,
+        english_title: PropTypes.string.isRequired,
+        english_topic: PropTypes.string.isRequired,
+        filename: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        keywords: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        topic: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
+    fetching: PropTypes.bool.isRequired,
+  }).isRequired,
   papersIndex: PropTypes.func.isRequired,
   paperUpdate: PropTypes.func.isRequired,
   rubric: PropTypes.shape({

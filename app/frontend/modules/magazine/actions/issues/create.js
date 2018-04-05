@@ -2,11 +2,11 @@ import request from 'api';
 
 import { CREATE_ISSUE } from '../../constants';
 
-export default function (issue, rubric) {
+export default function (issue, rubricId) {
   return (dispatch) => {
-    issue.append('rubric_id', rubric.id);
+    issue.append('rubric_id', rubricId);
 
-    request('/issues', issue, 'POST')
+    return request('/issues', issue, 'POST')
       .then(response => response.json())
       .then((payload) => {
         dispatch({

@@ -24,12 +24,12 @@ class IssuessManagment extends Component {
   }
 
   issuesComponents = () => {
-    const { issue, issueCreate, issueUpdate, rubric } = this.props;
+    const { issue, issueCreate, issueUpdate, rubricId } = this.props;
 
     let components = [
       {
         Component: IssueCreation,
-        props: { onCreate: issueCreate, rubric },
+        props: { onCreate: issueCreate, rubricId },
       },
     ];
 
@@ -59,13 +59,12 @@ class IssuessManagment extends Component {
   }
 }
 
-IssuessManagment.defaultProps = {
-  issue: null,
-  rubric: null,
-};
+IssuessManagment.defaultProps = { issue: null };
 
 IssuessManagment.propTypes = {
   issue: PropTypes.shape({
+    english_title: PropTypes.string,
+    filename: PropTypes.string,
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   }),
@@ -73,10 +72,7 @@ IssuessManagment.propTypes = {
   issueDestroy: PropTypes.func.isRequired,
   issueUpdate: PropTypes.func.isRequired,
   modalIsOpen: PropTypes.bool.isRequired,
-  rubric: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-  }),
+  rubricId: PropTypes.number.isRequired,
   sendModalProps: PropTypes.func.isRequired,
 };
 

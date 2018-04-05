@@ -15,11 +15,8 @@ const Field = ({
   className,
   helper,
   name,
-  placeholder,
-  required,
   style,
   title,
-  type,
   ...inputProps
 }) => (
   <FormGroup className={className} style={style}>
@@ -36,9 +33,6 @@ const Field = ({
         {...inputProps}
         id={name}
         name={name}
-        placeholder={placeholder}
-        required={required}
-        type={type}
       />
     </InputGroup>
     { helper ? <FormText>{ helper }</FormText> : null }

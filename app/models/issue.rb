@@ -2,11 +2,7 @@
 
 class Issue < ApplicationRecord
   validates :title,
-            presence: true,
-            uniqueness: { case_sensitive: false }
-
-  validates :english_title,
-            uniqueness: { case_sensitive: false }
+            presence: true
 
   belongs_to :rubric
 

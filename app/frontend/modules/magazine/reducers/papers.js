@@ -29,7 +29,7 @@ export default function (state = initialState, { type, payload }) {
     }
 
     case INDEX_PAPERS: {
-      return { ...state, all: payload };
+      return { ...state, all: payload, fetching: false };
     }
 
     case UPDATE_PAPER: {

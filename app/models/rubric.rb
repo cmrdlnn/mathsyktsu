@@ -2,8 +2,7 @@
 
 class Rubric < ApplicationRecord
   validates :title,
-            presence: true,
-            uniqueness: { case_sensitive: false }
+            presence: true
 
   has_many :issues, dependent: :destroy
 end

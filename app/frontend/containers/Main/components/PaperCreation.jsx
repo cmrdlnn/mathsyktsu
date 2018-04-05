@@ -79,10 +79,7 @@ const PaperCreation = ({ onCreate, issueId }) => (
 
 PaperCreation.propTypes = {
   onCreate: PropTypes.func.isRequired,
-  issue: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
+  issueId: PropTypes.number.isRequired,
 };
 
 export default PaperCreation;

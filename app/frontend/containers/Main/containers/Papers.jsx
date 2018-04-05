@@ -1,19 +1,34 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { createPaper, destroyPaper, updatePaper } from 'modules/magazine';
-
 class Papers extends React.Component {
   componentWillMount() {
-    const { issue: { id }, papersIndex } = this.props;
+    const { issue, papersIndex } = this.props;
 
-    papersIndex(id);
+    if (issue) papersIndex(issue.id);
   }
 
   render() {
-    if (this.props.papers.fetching) return null;
+    console.log(this.props)
+    const { papers: { all, fetching } } = this.props;
 
-    const { isRedactor, isRussian, issue, rubric } = this.props;
+    if (fetching) return null;
+
+    const { isRussian } = this.props;
+
+    if (!all.length) {
+      return (
+        <p className="caption">
+          {
+            isRussian ? (
+              'Не найдено ни одной статьи у данного экземпляра журнала'
+            ) : (
+              'No paper found in this issue'
+            )
+          }
+        </p>
+      );
+    }
 
     return (
       <div>
@@ -22,16 +37,23 @@ class Papers extends React.Component {
   }
 }
 
+Papers.defaultProps = { issue: null };
+
 Papers.propTypes = {
+  isRussian: PropTypes.bool.isRequired,
+  issue: PropTypes.shape({
+    english_title: PropTypes.string,
+    filename: PropTypes.string,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
   papers: PropTypes.shape({
-    fetching: PropTypes.bool.isRequired,
     all: PropTypes.arrayOf(
       PropTypes.object,
     ).isRequired,
+    fetching: PropTypes.bool.isRequired,
   }).isRequired,
-  paperCreate: PropTypes.func.isRequired,
-  paperDestroy: PropTypes.func.isRequired,
-  paperUpdate: PropTypes.func.isRequired,
+  papersIndex: PropTypes.func.isRequired,
 };
 
 export default Papers;

@@ -20,10 +20,14 @@ const Issue = ({ children, isRedactor, isRussian, issue, rubric }) => {
 
   return (
     <Fragment>
-      <Link
-        path={`/issues/${issue.id}/download`}
-        title={isRussian ? 'Скачать полный текст' : 'Download this issue'}
-      />
+      { issue.filename
+        && (
+          <Link
+            path={`/issues/${issue.id}/download`}
+            title={isRussian ? 'Скачать полный текст' : 'Download this issue'}
+          />
+        )
+      }
       <div className="main-description">
         <p className="caption">
           { isRussian ? issue.title : issue.english_title || issue.title }

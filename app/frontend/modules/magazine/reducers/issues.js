@@ -21,7 +21,7 @@ export default function (state = initialState, { type, payload }) {
     }
 
     case CREATE_ISSUE: {
-      return { ...state, all: [...state.all, payload] };
+      return { ...state, active: payload.id, all: [...state.all, payload] };
     }
 
     case DESTROY_ISSUE: {

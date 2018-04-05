@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 20170616180315) do
   create_table "papers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title", null: false
     t.string "english_title"
-    t.string "rubric", null: false
-    t.string "english_rubric"
+    t.string "topic", null: false
+    t.string "english_topic"
     t.string "autors", null: false
     t.string "english_autors"
     t.string "keywords", null: false
