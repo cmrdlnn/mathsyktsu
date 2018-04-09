@@ -7,7 +7,7 @@ function Jubilees() {
       <p className="caption">
         Юбиляры
       </p>
-      <div className="main-description">
+      <div className="mb-3 main-description">
         <p className="main-description-title">Баженов Илья Иванович</p>
         <p>Родился 05.03.1958 г.</p>
         <p>Закончил Сыктывкарский государственный университет.</p>
@@ -20,7 +20,7 @@ function Jubilees() {
           Сердечно поздравляем Вас с юбилеем! Желаем счастья и удач, разрешенья всех задач!
         </div>
       </div>
-      <div className="main-description">
+      <div className="mb-3 mt-3 main-description">
         <p className="main-description-title">Вечтомов Евгений Михайлович</p>
         <p>Родился 15.05.1953 г.</p>
         <p>Закончил Кировский государственный педагогический институт.</p>
@@ -33,7 +33,7 @@ function Jubilees() {
           Поздравляем Вас с юбилеем! Желаем счастья, здоровья, творческих успехов!
         </div>
       </div>
-      <div className="main-description">
+      <div className="mb-3 mt-3 main-description">
         <p className="main-description-title">Мальков Вениамин Михайлович </p>
         <p>Родился 13.08.1938 г.</p>
         <p>Закончил Ленинградский государственный университет.</p>
@@ -46,7 +46,7 @@ function Jubilees() {
           С юбилеем Вас поздравляем, здоровья крепкого желаем!
         </div>
       </div>
-      <div className="main-description">
+      <div className="mt-3 main-description">
         <p className="main-description-title">Петров Николай Никандрович</p>
         <p>Родился 18.12.1953 г.</p>
         <p>Закончил Ленинградский государственный университет.</p>

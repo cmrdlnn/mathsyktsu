@@ -23,7 +23,6 @@ import LanguageMenu from '../containers/LanguageMenu';
 import Papers from '../containers/Papers';
 
 import IssuesManagment from '../components/IssuesManagment';
-import PapersManagment from '../components/PapersManagment';
 import RubricsManagment from '../components/RubricsManagment';
 
 class Magazine extends Component {
@@ -121,22 +120,17 @@ class Magazine extends Component {
                 issue={issue}
                 rubric={rubric}
               >
-                { isRedactor
-                  && (
-                    <PapersManagment
-                      issue={issue}
-                      paperCreate={paperCreate}
-                      paperDestroy={paperDestroy}
-                      papersExists={!!papers.all.length && !papers.fetching}
-                      paperUpdate={paperUpdate}
-                    />
-                  )
-                }
                 <Papers
+                  isRedactor={isRedactor}
                   isRussian={isRussian}
                   issue={issue}
+                  modalIsOpen={isOpen}
+                  paperCreate={paperCreate}
+                  paperDestroy={paperDestroy}
                   papers={papers}
                   papersIndex={papersIndex}
+                  paperUpdate={paperUpdate}
+                  sendModalProps={this.setModalProps}
                 />
               </Issue>
             </Fragment>

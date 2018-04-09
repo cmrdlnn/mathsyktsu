@@ -1,25 +1,26 @@
 # frozen_string_literal: true
 
 class PapersController < ApplicationController
-  before_action :authenticate_redactor!, only: %i[create update destroy]
+  before_action :authenticate_redactor!, only: %i[create destroy update]
 
   include PapersHelper
 
   def create
-    attributes = attribute_sorting(params[:paper])
-    render json: Paper.create(attributes).to_json, status: :created
+    new_paper = service.create(params)
+    render json: new_paper, status: :created
   end
 
-  def show_for_issue
-    render json: Paper.where(issue_id: params[:id])
-                      .select(helpers.attributes_for_show)
-                      .to_json
+  def destroy
+    service.destroy(params)
+  end
+
+  def update
+    updated_paper = service.update(params)
+    render json: updated_paper
   end
 
   def download
-    paper = Paper.find(params[:id])
-    send_file "#{Rails.root}/private/articles/#{paper.attachment}",
-              filename: paper.filename,
-              type: paper.mime_type
+    file = service.download(params)
+    send_file(*file)
   end
 end

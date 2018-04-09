@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Link = ({ path, title, ...props }) => (
+const Link = ({ href, title, ...props }) => (
   <div className="download-link" {...props}>
-    <a href={path} target="_blank">
+    <a href={href} target="_blank">
       { title }
     </a>
   </div>
@@ -12,7 +12,7 @@ const Link = ({ path, title, ...props }) => (
 Link.defaultProps = { title: null };
 
 Link.propTypes = {
-  path: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired,
   title: PropTypes.string,
 };
 

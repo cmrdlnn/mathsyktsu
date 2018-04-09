@@ -2,12 +2,13 @@ import {
   CLEAR_ISSUES,
   CREATE_ISSUE,
   DESTROY_ISSUE,
+  DESTROY_RUBRIC,
   INDEX_ISSUES,
   SET_ACTIVE_ISSUE,
   UPDATE_ISSUE,
 } from '../constants';
 
-import findIndexById, { sliceByIndex } from '../utils';
+import findIndexesByProp, { sliceByIndexes } from '../utils';
 
 const initialState = {
   all: [],
@@ -25,8 +26,13 @@ export default function (state = initialState, { type, payload }) {
     }
 
     case DESTROY_ISSUE: {
-      const index = findIndexById(payload, state.all);
-      return { ...state, all: sliceByIndex(index, state.all) };
+      const index = findIndexesByProp('id', payload, state.all);
+      return { ...state, all: sliceByIndexes(index, state.all) };
+    }
+
+    case DESTROY_RUBRIC: {
+      const indexes = findIndexesByProp('rubric_id', payload, state.all);
+      return { ...state, all: sliceByIndexes(indexes, state.all) };
     }
 
     case INDEX_ISSUES: {
@@ -38,8 +44,8 @@ export default function (state = initialState, { type, payload }) {
     }
 
     case UPDATE_ISSUE: {
-      const index = findIndexById(payload.id, state.all);
-      return { ...state, all: sliceByIndex(index, state.all, payload) };
+      const index = findIndexesByProp('id', payload.id, state.all);
+      return { ...state, all: sliceByIndexes(index, state.all, payload) };
     }
 
     default:

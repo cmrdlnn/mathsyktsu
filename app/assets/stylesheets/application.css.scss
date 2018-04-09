@@ -28,10 +28,15 @@ body {
   font-family: Verdana, sans-serif;
   font-size: 1.2vw;
   line-height: 1.5;
+}
+
+.scrollable-menu,
+body {
   overflow-x: hidden;
 }
 
-body, .articles-separation-line {
+.articles-separation-line,
+body {
   margin: 0;
 }
 
@@ -547,4 +552,9 @@ h3 {
 
 .articles-separation-line {
   border-top: 5px solid #e9ce60;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
 }

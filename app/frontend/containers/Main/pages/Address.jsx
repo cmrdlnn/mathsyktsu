@@ -14,7 +14,7 @@ function Address() {
         ФГБОУ ВО «СГУ им.Питирима Сорокина», кафедра прикладной математики и информационных технологий в образовании
         <br />
         Вестник Сыктывкарского университета. Серия 1: Математика. Механика. Информатика.
-        <p className="main-description-title">ЭЛЕКТРОННАЯ ПОЧТА</p>
+        <p className="mt-3 main-description-title">ЭЛЕКТРОННАЯ ПОЧТА</p>
         <a href="mailto:vestnik-mmi@syktsu.ru">vestnik-mmi@syktsu.ru</a>
       </div>
     </Fragment>

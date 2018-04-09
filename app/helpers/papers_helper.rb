@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module PapersHelper
+  def service
+    PapersService
+  end
+
   def attribute_sorting(paper)
     attachment = FileHelper.create_file(paper[:file][:content],
                                         paper[:filename],

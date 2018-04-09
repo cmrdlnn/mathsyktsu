@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Link from 'components/Link';
 
-const Issue = ({ children, isRedactor, isRussian, issue, rubric }) => {
+const Issue = ({ children, isRussian, issue }) => {
   if (!issue) {
     return (
       <p className="caption">
@@ -23,7 +23,7 @@ const Issue = ({ children, isRedactor, isRussian, issue, rubric }) => {
       { issue.filename
         && (
           <Link
-            path={`/issues/${issue.id}/download`}
+            href={`/issues/${issue.id}/download`}
             title={isRussian ? 'Скачать полный текст' : 'Download this issue'}
           />
         )
@@ -41,16 +41,12 @@ const Issue = ({ children, isRedactor, isRussian, issue, rubric }) => {
 Issue.defaultProps = { issue: null };
 
 Issue.propTypes = {
-  isRedactor: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
   isRussian: PropTypes.bool.isRequired,
   issue: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
   }),
-  rubric: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default Issue;

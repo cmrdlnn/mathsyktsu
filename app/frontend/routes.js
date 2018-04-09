@@ -9,7 +9,16 @@ const routes = {
   },
   '/jubilees': { title: 'Юбиляры' },
   '/news': { title: 'Новости' },
-  '/to_autors': { title: 'Авторам' },
+  '/to_autors': {
+    title: 'Авторам',
+    subroutes: {
+      '/to_autors': 'Рукописи',
+      '/instruments': 'Инструменты',
+      '/articles': 'Статьи',
+      '/peer_review': 'Рецензирование',
+      '/publication': 'Публикация',
+    },
+  },
   '/magazine': { title: 'Вестник' },
 };
 

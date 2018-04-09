@@ -20,7 +20,7 @@ const IssueUpdating = ({
     <Form buttonText="Изменить" onSubmit={(data) => { onUpdate(id, data); }}>
       <Field
         defaultValue={title}
-        key={title}
+        key={`${title}-title`}
         name="title"
         placeholder="Введите новое название экземпляра журнала..."
         required
@@ -29,7 +29,7 @@ const IssueUpdating = ({
       <Field
         defaultValue={englishTitle}
         helper="Необязательно"
-        key={englishTitle}
+        key={`${englishTitle}-englishTitle`}
         name="english_title"
         placeholder="Введите новое название экземпляра журнала на английском языке..."
         title="Новое название экземпляра журнала на английском языке"

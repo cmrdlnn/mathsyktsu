@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import ButtonsMenu from 'components/ButtonsMenu';
 
 import PaperCreation from '../components/PaperCreation';
+import PaperDestroying from '../components/PaperDestroying';
+import PaperUpdating from '../components/PaperUpdating';
 
 class PapersManagment extends Component {
   toggleIssueDestroying = () => {
@@ -28,9 +30,11 @@ class PapersManagment extends Component {
       modalIsOpen,
       paperCreate,
       paperDestroy,
+      papers,
       papersExists,
       paperUpdate,
       sendModalProps,
+      topics,
     } = this.props;
 
     if (!issue) return [];
@@ -38,10 +42,7 @@ class PapersManagment extends Component {
     let components = [
       {
         Component: PaperCreation,
-        props: {
-          issueId: issue.id,
-          onCreate: paperCreate,
-        },
+        props: { onCreate: (data) => { paperCreate(data, issue.id); } },
       },
     ];
 
@@ -49,15 +50,11 @@ class PapersManagment extends Component {
       components = components.concat([
         {
           Component: PaperUpdating,
-          props: { onUpdate: paperUpdate },
+          props: { onUpdate: paperUpdate, papers, topics },
         },
         {
           Component: PaperDestroying,
-          props: {
-            modalIsOpen,
-            onDestroy: paperDestroy,
-            sendModalProps,
-          },
+          props: { modalIsOpen, onDestroy: paperDestroy, sendModalProps, topics },
         },
       ]);
     }

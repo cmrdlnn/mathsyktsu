@@ -7,7 +7,7 @@ import {
   UPDATE_RUBRIC,
 } from '../constants';
 
-import findIndexById, { sliceByIndex } from '../utils';
+import findIndexesByProp, { sliceByIndexes } from '../utils';
 
 const initialState = {
   all: [],
@@ -25,8 +25,8 @@ export default function (state = initialState, { type, payload }) {
     }
 
     case DESTROY_RUBRIC: {
-      const index = findIndexById(payload, state.all);
-      return { ...state, all: sliceByIndex(index, state.all) };
+      const index = findIndexesByProp('id', payload, state.all);
+      return { ...state, all: sliceByIndexes(index, state.all) };
     }
 
     case INDEX_RUBRICS: {
@@ -38,8 +38,8 @@ export default function (state = initialState, { type, payload }) {
     }
 
     case UPDATE_RUBRIC: {
-      const index = findIndexById(payload.id, state.all);
-      return { ...state, all: sliceByIndex(index, state.all, payload) };
+      const index = findIndexesByProp('id', payload.id, state.all);
+      return { ...state, all: sliceByIndexes(index, state.all, payload) };
     }
 
     default:

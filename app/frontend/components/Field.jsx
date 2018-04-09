@@ -42,6 +42,7 @@ const Field = ({
 Field.defaultProps = {
   addon: null,
   className: '',
+  defaultValue: null,
   helper: null,
   name: null,
   placeholder: null,
@@ -57,6 +58,10 @@ Field.propTypes = {
     PropTypes.node,
   ]),
   className: PropTypes.string,
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   helper: PropTypes.string,
   name: PropTypes.string,
   placeholder: PropTypes.string,

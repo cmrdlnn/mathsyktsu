@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 class Paper < ApplicationRecord
-  validates :title, presence: true
-  validates :rubric, presence: true
   validates :autors, presence: true
   validates :description, presence: true
   validates :keywords, presence: true
+  validates :title, presence: true
+  validates :topic, presence: true
 
   belongs_to :issue
 
-  def delete
+  def destroy
     super
     FileHelper.delete(attachment, PapersService::PATH)
   end

@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const devServerOptions = process.argv.find(arg => arg.includes('webpack-dev-server'))
   ? {
     devServer: { headers: { 'Access-Control-Allow-Origin': '*' } },
+    devtool: 'eval-source-map',
     output: { publicPath: 'http://0.0.0.0:8080/' },
   }
   : {};

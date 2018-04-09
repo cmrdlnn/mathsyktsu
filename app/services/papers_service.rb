@@ -3,10 +3,6 @@
 module PapersService
   PATH = Rails.root.join('magazine', 'papers')
 
-  def self.index
-    Index.index
-  end
-
   def self.create(params)
     Create.new(params).create
   end
