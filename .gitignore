@@ -23,6 +23,7 @@ node_modules
 
 /public/**/*
 !/public/images
+!/public/files
 !/public/404.html
 !/public/422.html
 !/public/500.html

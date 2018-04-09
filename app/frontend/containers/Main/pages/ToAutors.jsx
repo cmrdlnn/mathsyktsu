@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 function ToAutors() {
   return (
     <Fragment>
-      <img className="title" src="/images/title.png" alt="О журнале" />
+      <img className="title" src="/images/authors.png" alt="О журнале" />
       <p className="caption">
         Требования к оформлению рукописей статей
       </p>
